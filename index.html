@@ -1,14 +1,38 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Box Shape Change</title>
+    <style>body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0; /* Light background for contrast */
+    }
+    
+    .box {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+        background-color: #007bff; /* Blue background */
+        transition: all 0.3s ease; /* Smooth transition */
+    }
+    
+    /* Target the 3rd box when hovered */
+    .box:nth-child(3):hover {
+        width: 200px; /* Double the width */
+        height: 200px; /* Double the height */
+        background-color: #ff6347; /* Change background color to tomato */
+    }</style>
 </head>
 <body>
-    <h1>Hello</h1>
-    <h1>Hello</h1>
-    <h1>He</h1>
-    <h1>Hello</h1>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
 </body>
 </html>
