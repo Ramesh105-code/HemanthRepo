@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        p::first-letter {
+            font-size: 2em;
+            font-weight: bold;
+            color: red;
+        }
+
+        p::first-line {
+            font-weight: bold;
+        }
+
+        li::marker {
+            color: blue;
+            font-size: 1.5em;
+        }
+
+        input::placeholder {
+            color: gray;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <p>This is a paragraph. The first letter will be larger and red, and the first line will be bold.</p>
+
+    <ul>
+        <li>First item</li>
+        <li>Second item</li>
+    </ul>
+
+    <input type="text" placeholder="Enter your name">
+</body>
+</html>

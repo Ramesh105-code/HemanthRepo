@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Lists</title>
+    <style>.first-list {
+        list-style-type: none;
+    }
+    
+    .first-list li {
+        list-style-type: disc;
+        margin-left: 20px;
+        color: black;
+        list-style-position: inside;
+    }
+    
+    .first-list li.red {
+        color: red;
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+    
+    .second-list {
+        list-style-type: none;
+    }
+    
+    .second-list li {
+        list-style-type: disc;
+        margin-left: 20px;
+        color: black;
+        list-style-position: inside;
+    }
+    </style>
+</head>
+<body>
+    <div style="border:2px solid black;width:200px;">
+    <ul class="first-list">
+        <li class="red">item-1</li>
+        <li>item-2</li>
+        <li class="red">item-3</li>
+        <li>item-4</li>
+        <li class="red">item-5</li>
+        <li>item-6</li>
+        <li class="red">item-7</li>
+        <li>item-8</li>
+        <li class="red">item-9</li>
+        <li>item-10</li>
+    </ul>
+
+    <ul class="second-list">
+        <li>item-1</li>
+        <li>item-2</li>
+        <li>item-3</li>
+        <li>item-4</li>
+        <li>item-5</li>
+        <li>item-6</li>
+        <li>item-7</li>
+        <li>item-8</li>
+        <li>item-9</li>
+        <li>item-10</li>
+    </ul>
+    </div>
+</body>
+</html>
