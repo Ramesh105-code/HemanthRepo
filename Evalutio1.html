@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puma Styled Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #000;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .banner {
+            background-color: #3b3486;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .hero-section {
+            display: flex;
+            background-color: #d9d4d2;
+            padding: 30px;
+        }
+        .hero-text {
+            width: 50%;
+        }
+        .hero-image {
+            width: 50%;
+            background-color: #ddd;
+            text-align: center;
+            padding: 20px;
+        }
+        .products, .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: white;
+            flex-wrap: wrap;
+        }
+        .product-card, .gallery-item {
+            text-align: center;
+            width: 150px;
+        }
+        .product-card img, .gallery-item img {
+            width: 100%;
+            height: auto;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            width: 80%;
+        }
+        .btn:hover {
+            background-color: gray;
+        }
+        .footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="data:image/png;base64,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" alt="Puma Logo" width="80">
+    </div>
+    <nav>
+        <a href="#">New Arrivals</a>
+        <a href="#">Men</a>
+        <a href="#">Women</a>
+        <a href="#">Kids</a>
+        <a href="#">Sale</a>
+        <a href="#">Login</a>
+    </nav>
+</header>
+
+<div class="banner">
+    Free Shipping on Orders over ₹4,000 | Easy Returns | Shop Now
+</div>
+
+<section class="hero-section">
+    <div class="hero-text">
+        <h1>Palermo</h1>
+        <p>REWRITE THE CLASSES.</p>
+        <button class="btn">SHOP NOW</button>
+        <button class="btn">EXPLORE STYLE GUIDE</button>
+
+    </div>
+    <div class="hero-image">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp7Ej69yevj0jQpHXm78q795zr1U4b2VV3Kg&s" alt="shoes">
+    </div>
+</section>
+
+<div class="products">
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/395104/02/sv01/fnd/IND/fmt/png/PUMA-Club-5v5-SD-Unisex-Sneakers" alt="Blue Palermo Shoe">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/392332/07/sv01/fnd/IND/fmt/png/Caven-2.0-VTG-Unisex-Sneakers" alt="White Palermo Shoe">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/380736/01/sv01/fnd/IND/fmt/png/Graviton-Pro-Unisex-Sneakers" alt="Black Palermo Shoe">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/399614/01/sv01/fnd/IND/fmt/png/Caven-2.0-Year-Of-Sport-Unisex-Sneakers" alt="Red Palermo Shoe">
+        <button class="btn">Shop Now</button>
+    </div>
+</div>
+
+<h2 class="section-title">Palermo Playbook</h2>
+<div class="gallery">
+    <div class="gallery-item">
+        <img src="https://in.puma.com/in/en/trending/edits/edit1" alt="Group Image with Retro Look">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/626804/69/mod01/fnd/IND/fmt/png/DARE-TO-Women's-Corset" alt="Individual posing on bicycle">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/626696/65/mod01/fnd/IND/fmt/png/MMQ-T7-Track-Men's-Relaxed-Fit-Pants" alt="Friends with retro outfits">
+        <button class="btn">Shop Now</button>
+    </div>
+</div>
+
+<h2 class="section-title">Classics</h2>
+<div class="gallery">
+    <div class="gallery-item">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/691287/28/mod01/fnd/IND/fmt/png/Vedanta-Delhi-Half-Marathon-Women's-Graphic-Running-Tee" alt="Hoodie Tops">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="gallery-item">
+        <img src="tshirt.png" alt="Essential T-Shirts">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="gallery-item">
+        <img src="jacket.png" alt="Stylish Jackets">
+        <button class="btn">Shop Now</button>
+    </div>
+</div>
+
+<section class="gallery">
+    <div class="hero-image">
+        <p>Puma Speedcat Image: People in trendy athleisure wear with paper props.</p>
+        <button class="btn">Shop Now</button>
+    </div>
+</section>
+
+<section class="hero-section">
+    <div class="hero-text">
+        <h2>Fenty x Puma</h2>
+        <p>The Sneakers Remix</p>
+        <button class="btn">Shop Now</button>
+        <button class="btn">Explore More</button>
+    </div>
+</section>
+
+<div class="products">
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/392332/07/sv01/fnd/IND/fmt/png/Caven-2.0-VTG-Unisex-Sneakers" alt="White Shoe">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/396463/18/sv01/fnd/IND/fmt/png/Palermo-Unisex-Sneakers" alt="Green Shoe">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/397837/03/sv01/fnd/IND/fmt/png/Cassia-Lux-Unisex-Sneakers" alt="Black Shoe 1">
+        <button class="btn">Shop Now</button>
+    </div>
+    <div class="product-card">
+        <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_500,h_500/global/398182/01/sv01/fnd/IND/fmt/png/Palermo-Supertifo-Unisex-Sneakers" alt="Purple Shoe 2">
+        <p> </p>
+        <button class="btn">Shop Now</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2024 Puma. All Rights Reserved. | Terms | Privacy Policy</p>
+</footer>
+
+</body>
+</html>
