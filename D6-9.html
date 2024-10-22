@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masai In The News</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6fc;
+        color: #333;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    /* News Section */
+    .news-section {
+        background-color: #f0f4ff;
+        padding: 40px 20px;
+        border-radius: 10px;
+    }
+    
+    .news-cards {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .news-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        width: 30%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+    
+    .news-card h3 {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 10px;
+    }
+    
+    .news-date {
+        color: #4f7df2;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    
+    .news-card p {
+        font-size: 0.9em;
+        color: #666;
+    }
+    
+    .news-card strong {
+        color: #333;
+    }
+    
+    .see-more {
+        display: inline-block;
+        margin-top: 20px;
+        color: #f04f4f;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .see-more:hover {
+        text-decoration: underline;
+    }
+    
+    /* Investors Section */
+    .investors-section {
+        background-color: #fff;
+        padding: 40px 20px;
+        margin-top: 40px;
+        border-radius: 10px;
+    }
+    
+    .investors-logos {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .investors-logos img {
+        width: 120px;
+        height: auto;
+    }
+    </style>
+</head>
+<body>
+    <!-- News Section -->
+    <section class="news-section">
+        <h2>Masai In The News</h2>
+        <div class="news-cards">
+            <div class="news-card">
+                <h3><img src="https://masai-website-images.s3.ap-south-1.amazonaws.com/ET_3754cc10ec.png" alt="The Economic Times"></h3>
+                <p class="news-date">21 Dec 2021</p>
+                <p><strong>Edtech startup Masai School acquires data analytics firm Prepleaf for $1 million.</strong></p>
+                <p>With their latest acquisition, Masai moves one step closer to becoming...</p>
+            </div>
+            <div class="news-card">
+                <h3><img src="https://masai-website-images.s3.ap-south-1.amazonaws.com/money_Control_c3e25f5ceb.png" alt="Money Control"></h3>
+                <p class="news-date">26 Oct 2021</p>
+                <p><strong>Kunal Shah, Vijay Shekhar Sharma, Amrish Rau among 21 angel investors in Masai School.</strong></p>
+                <p>Masai School is aiming to expand to 20 smaller cities by March 2022 and...</p>
+            </div>
+            <div class="news-card">
+                <h3><img src="https://masai-website-images.s3.ap-south-1.amazonaws.com/vccircle_6ef779c958.png" alt="VCCircle"></h3>
+                <p class="news-date">18 Aug 2020</p>
+                <p><strong>Unitus Ventures leads pre-Series A funding for coding-focused Masai School.</strong></p>
+                <p>Software coding platform Masai School has raised $2.5 million...</p>
+            </div>
+        </div>
+        <a href="#" class="see-more">See More</a>
+    </section>
+
+    <!-- Investors Section -->
+    <section class="investors-section">
+        <h2>Our Investors, Who Believe In Us</h2>
+        <div class="investors-logos">
+            <img src="https://www.masaischool.com/images/our-investors/capria-logo.svg" alt="Unitus Ventures">
+            <img src="https://www.masaischool.com/images/our-investors/omidyar-borderless.svg" alt="Omidyar Network India">
+            <img src="https://www.masaischool.com/images/our-investors/india-q-borderless.svg" alt="IndiaQuotient">
+        </div>
+    </section>
+</body>
+</html>
