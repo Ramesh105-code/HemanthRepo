@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            grid-template-rows: repeat(2, 1fr); /* 2 rows */
+            gap: 10px; /* Space between grid items */
+            width: 80%;
+            height: 60%;
+        }
+        .grid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            border-radius: 8px;
+        }
+        .item1 { background-color: #FF5733; } /* Red */
+        .item2 { background-color: #33FF57; } /* Green */
+        .item3 { background-color: #3357FF; } /* Blue */
+        .item4 { background-color: #F3FF33; } /* Yellow */
+        .item5 { background-color: #FF33A1; } /* Pink */
+        .item6 { background-color: #33FFF4; } /* Cyan */
+        .item7 { background-color: #FF9133; } /* Orange */
+        .item8 { background-color: #A833FF; } /* Purple */
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item item1">Item 1</div>
+        <div class="grid-item item2">Item 2</div>
+        <div class="grid-item item3">Item 3</div>
+        <div class="grid-item item4">Item 4</div>
+        <div class="grid-item item5">Item 5</div>
+        <div class="grid-item item6">Item 6</div>
+        <div class="grid-item item7">Item 7</div>
+        <div class="grid-item item8">Item 8</div>
+    </div>
+</body>
+</html>
