@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Length Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculate Text Length</h1>
+    <input type="text" id="textInput" placeholder="Enter your text here">
+    <button id="goButton">Go</button>
+
+    <div class="result">
+        Length (excluding spaces): <span id="lengthDisplay">0</span>
+    </div>
+
+    <script>
+        // Function to calculate text length excluding spaces
+        function calculateLength() {
+            const textInput = document.getElementById('textInput').value; // Get user input
+            const lengthExcludingSpaces = textInput.replace(/\s+/g, '').length; // Calculate length excluding spaces
+            document.getElementById('lengthDisplay').innerText = lengthExcludingSpaces; // Update result display
+        }
+
+        // Add event listener to the button
+        document.getElementById('goButton').addEventListener('click', calculateLength);
+    </script>
+
+</body>
+</html>

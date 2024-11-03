@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .status {
+            margin-left: 10px;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .status-Pending {
+            background-color: #ffeb3b;
+        }
+        .status-InProgress {
+            background-color: #03a9f4;
+            color: white;
+        }
+        .status-Completed {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task Management App</h1>
+    <form id="taskForm">
+        <input type="text" id="taskTitle" placeholder="Task Title" required>
+        <input type="text" id="taskDescription" placeholder="Task Description" required>
+        <select id="taskStatus" required>
+            <option value="">Select Status</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Filter Tasks</h2>
+    <select id="filterStatus">
+        <option value="All">All</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        const tasks = [];
+        const taskList = document.getElementById('taskList');
+        const filterStatus = document.getElementById('filterStatus');
+
+        document.getElementById('taskForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            addTask();
+        });
+
+        filterStatus.addEventListener('change', updateTaskList);
+
+        function addTask() {
+            const title = document.getElementById('taskTitle').value;
+            const description = document.getElementById('taskDescription').value;
+            const status = document.getElementById('taskStatus').value;
+
+            if (title && description && status) {
+                const task = { title, description, status };
+                tasks.push(task);
+                clearInputs();
+                updateTaskList();
+            }
+        }
+
+        function clearInputs() {
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskStatus').value = '';
+        }
+
+        function updateTaskList() {
+            taskList.innerHTML = '';
+            const filteredTasks = tasks.filter(task => {
+                return filterStatus.value === 'All' || task.status === filterStatus.value;
+            });
+
+            filteredTasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.className = task.status;
+                li.innerHTML = `
+                    <span class="${task.status === 'Completed' ? 'completed' : ''}">${task.title} - ${task.description}</span>
+                    <span class="status status-${task.status}">${task.status}</span>
+                    <button onclick="markComplete(${index})">Complete</button>
+                    <button onclick="editTask(${index})">Edit</button>
+                    <button onclick="deleteTask(${index})">Delete</button>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+
+        function markComplete(index) {
+            tasks[index].status = 'Completed';
+            updateTaskList();
+        }
+
+        function editTask(index) {
+            const task = tasks[index];
+            document.getElementById('taskTitle').value = task.title;
+            document.getElementById('taskDescription').value = task.description;
+            document.getElementById('taskStatus').value = task.status;
+            tasks.splice(index, 1); // Remove the task being edited
+            updateTaskList();
+        }
+
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            updateTaskList();
+        }
+    </script>
+
+</body>
+</html>

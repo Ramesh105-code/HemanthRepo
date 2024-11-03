@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analyzer Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Text Analyzer Tool</h1>
+    <input type="text" id="textInput" placeholder="Enter your text here">
+    <input type="text" id="substringInput" placeholder="Enter substring to check">
+    
+    <div>
+        <button onclick="analyzeText('countWords')">Count Words</button>
+        <button onclick="analyzeText('toUpperCase')">To Upper Case</button>
+        <button onclick="analyzeText('toLowerCase')">To Lower Case</button>
+        <button onclick="analyzeText('checkSubstring')">Check Substring</button>
+    </div>
+
+    <div class="result" id="resultDisplay"></div>
+
+    <script>
+        // Higher-order function to handle analysis based on the operation type
+        function analyzeText(operation) {
+            const textInput = document.getElementById('textInput').value;
+            const substringInput = document.getElementById('substringInput').value;
+            let result = '';
+
+            switch (operation) {
+                case 'countWords':
+                    result = Word Count: ${countWords(textInput)};
+                    break;
+                case 'toUpperCase':
+                    result = Upper Case: ${toUpperCase(textInput)};
+                    break;
+                case 'toLowerCase':
+                    result = Lower Case: ${toLowerCase(textInput)};
+                    break;
+                case 'checkSubstring':
+                    result = checkSubstring(textInput, substringInput);
+                    break;
+                default:
+                    result = 'Invalid operation';
+            }
+
+            // Update the result display
+            document.getElementById('resultDisplay').innerText = result;
+        }
+
+        // Function to count words
+        function countWords(text) {
+            return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+        }
+
+        // Function to convert text to upper case
+        function toUpperCase(text) {
+            return text.toUpperCase();
+        }
+
+        // Function to convert text to lower case
+        function toLowerCase(text) {
+            return text.toLowerCase();
+        }
+
+        // Function to check for substring presence
+        function checkSubstring(text, substring) {
+            if (substring === '') {
+                return 'Please enter a substring to check.';
+            }
+            return text.includes(substring) ? "${substring}" is found in the text. : "${substring}" is not found in the text.;
+        }
+    </script>
+
+</body>
+</html>

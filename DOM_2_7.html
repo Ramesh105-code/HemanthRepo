@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Ratings and Prices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .bar {
+            width: 0;
+            height: 30px;
+            margin: 5px 0;
+            background-color: #4CAF50;
+            text-align: right;
+            line-height: 30px;
+            color: white;
+            transition: width 0.5s;
+        }
+        .chart-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .price-bar {
+            background-color: #2196F3;
+        }
+        .rating-bar {
+            background-color: #FF9800;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Product Price and Rating Chart</h1>
+    <input type="text" id="productName" placeholder="Product Name" required>
+    <input type="number" id="productPrice" placeholder="Price" required min="0">
+    <input type="number" id="productRating" placeholder="Rating (1-5)" required min="1" max="5">
+    <button id="addProduct">Add Product</button>
+
+    <div class="chart-container">
+        <h2>Price Bar Graph</h2>
+        <div id="priceChart"></div>
+        <h2>Rating Bar Graph</h2>
+        <div id="ratingChart"></div>
+    </div>
+
+    <script>
+        const products = [];
+
+        document.getElementById('addProduct').addEventListener('click', function() {
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const rating = parseInt(document.getElementById('productRating').value);
+
+            if (name && !isNaN(price) && !isNaN(rating)) {
+                products.push({ name, price, rating });
+                updateCharts();
+                clearInputs();
+            } else {
+                alert('Please fill in all fields correctly.');
+            }
+        });
+
+        function clearInputs() {
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productRating').value = '';
+        }
+
+        function updateCharts() {
+            const priceChart = document.getElementById('priceChart');
+            const ratingChart = document.getElementById('ratingChart');
+            priceChart.innerHTML = '';
+            ratingChart.innerHTML = '';
+
+            const maxPrice = Math.max(...products.map(p => p.price), 0);
+            const maxRating = Math.max(...products.map(p => p.rating), 0);
+
+            products.forEach(product => {
+                // Price Bar
+                const priceBar = document.createElement('div');
+                priceBar.className = 'bar price-bar';
+                priceBar.style.width = (product.price / maxPrice * 100) + '%';
+                priceBar.textContent = ${product.name}: $${product.price};
+                priceChart.appendChild(priceBar);
+
+                // Rating Bar
+                const ratingBar = document.createElement('div');
+                ratingBar.className = 'bar rating-bar';
+                ratingBar.style.width = (product.rating / maxRating * 100) + '%';
+                ratingBar.textContent = ${product.name}: ${product.rating};
+                ratingChart.appendChild(ratingBar);
+            });
+        }
+    </script>
+
+</body>
+</html>
