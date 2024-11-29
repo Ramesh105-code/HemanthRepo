@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging CSS with Specificity</title>
+    <style>
+        /* General button styling */
+        button {
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* Style buttons with the data-type="primary" attribute */
+        button[data-type="primary"] {
+            background-color: blue;
+            color: white;
+        }
+
+        /* Style buttons with the class "cta" */
+        .cta {
+            font-weight: bold;
+        }
+
+        /* Ensure buttons with both data-type="primary" and class="cta" are styled correctly */
+        button[data-type="primary"].cta {
+            background-color: darkblue; /* Override to a darker shade */
+            font-weight: bold;         /* Ensure bold text */
+        }
+    </style>
+</head>
+<body>
+    <button data-type="primary">Primary Button</button>
+    <button class="cta">Call to Action</button>
+    <button data-type="primary" class="cta">Primary CTA</button>
+    <button>Default Button</button>
+</body>
+</html>

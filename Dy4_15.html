@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Navigation Bar</title>
+    <style>
+        /* General navigation bar styling */
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        nav section {
+            margin-bottom: 10px;
+        }
+
+        /* Descendant combinator: Style links within different sections */
+        nav section.section-1 a {
+            color: lightblue;
+        }
+
+        nav section.section-2 a {
+            color: lightgreen;
+        }
+
+        nav section.section-3 a {
+            color: lightcoral;
+        }
+
+        /* Child combinator: Style only direct child links within each section */
+        nav section > a {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* Attribute selector: Links with href starting with "https" */
+        nav a[href^="https"] {
+            color: gold;
+            text-decoration: none;
+        }
+
+        /* Pseudo-class :hover for dynamic interaction */
+        nav a:hover {
+            color: yellow;
+            text-decoration: overline;
+        }
+
+        /* Pseudo-class :active for clicked links */
+        nav a:active {
+            color: orange;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <section class="section-1">
+            <a href="https://example1.com">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+        </section>
+        <section class="section-2">
+            <a href="#portfolio">Portfolio</a>
+            <a href="https://example2.com">Our Work</a>
+            <a href="#testimonials">Testimonials</a>
+        </section>
+        <section class="section-3">
+            <a href="#contact">Contact</a>
+            <a href="https://example3.com">Support</a>
+            <a href="#faq">FAQ</a>
+        </section>
+    </nav>
+</body>
+</html>
