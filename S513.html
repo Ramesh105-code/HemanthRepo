@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Header and Fixed Footer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #6200ea;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .content p {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sticky Header</h1>
+    <p>This header will stick to the top as you scroll.</p>
+  </header>
+  
+  <main>
+    <div class="content">
+      <h2>Scrolling Content</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+      <p>Curabitur ac felis arcu. Sed vulputate dapibus nisl ut laoreet.</p>
+      <p>Proin nec lacus vel magna congue tincidunt.</p>
+      <p>Integer non dolor nec ipsum pulvinar imperdiet.</p>
+      <p>Mauris maximus massa eu nulla fringilla fermentum.</p>
+      <p>Aenean bibendum mauris eu sem interdum, nec tristique turpis ultrices.</p>
+      <p>Fusce ut arcu ac nunc fermentum bibendum.</p>
+      <p>Pellentesque ut justo vitae nisl commodo placerat.</p>
+      <p>Ut bibendum enim a ligula interdum, at dictum neque tincidunt.</p>
+    </div>
+  </main>
+  
+  <footer>
+    <p>Fixed Footer - Always at the bottom</p>
+  </footer>
+</body>
+</html>

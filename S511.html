@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Box Model Demonstration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .box {
+      width: 200px;
+      padding: 20px;
+      border: 5px solid #000;
+      margin: 10px;
+      text-align: center;
+    }
+
+    .content-box {
+      background-color: #f4a261;
+      box-sizing: content-box;
+    }
+
+    .border-box {
+      background-color: #2a9d8f;
+      box-sizing: border-box;
+    }
+
+    .custom-box {
+      background-color: #e76f51;
+      padding: 30px;
+      border: 8px dashed #222;
+      margin: 15px;
+      box-sizing: content-box;
+    }
+
+    p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CSS Box Model Demonstration</h1>
+  </header>
+  <main>
+    <section>
+      <div class="box content-box">
+        <p>This box uses <strong>box-sizing: content-box</strong>.</p>
+      </div>
+      <div class="box border-box">
+        <p>This box uses <strong>box-sizing: border-box</strong>.</p>
+      </div>
+      <div class="box custom-box">
+        <p>This box has unique styling for comparison.</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Demonstration by [Your Name]</p>
+  </footer>
+</body>
+</html>
