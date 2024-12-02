@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Navigation Bar</title>
     <style>
-        /* General navigation bar styling */
+     
         nav {
             background-color: #333;
             color: white;
@@ -17,7 +17,7 @@
             margin-bottom: 10px;
         }
 
-        /* Descendant combinator: Style links within different sections */
+        
         nav section.section-1 a {
             color: lightblue;
         }
@@ -30,25 +30,24 @@
             color: lightcoral;
         }
 
-        /* Child combinator: Style only direct child links within each section */
+      
         nav section > a {
             font-weight: bold;
             text-decoration: underline;
         }
 
-        /* Attribute selector: Links with href starting with "https" */
+        
         nav a[href^="https"] {
             color: gold;
             text-decoration: none;
         }
 
-        /* Pseudo-class :hover for dynamic interaction */
+     
         nav a:hover {
             color: yellow;
             text-decoration: overline;
         }
 
-        /* Pseudo-class :active for clicked links */
         nav a:active {
             color: orange;
             text-decoration: none;
