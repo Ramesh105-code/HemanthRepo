@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Grid Layout</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      grid-template-rows: repeat(2, 200px); /* 2 rows with fixed height */
+      gap: 10px; /* Space between grid items */
+    }
+
+    .item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #333;
+      font-size: 18px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .item:nth-child(1) { background-color: #ff5733; }
+    .item:nth-child(2) { background-color: #33c1ff; }
+    .item:nth-child(3) { background-color: #8e44ad; }
+    .item:nth-child(4) { background-color: #2ecc71; }
+    .item:nth-child(5) { background-color: #f39c12; }
+    .item:nth-child(6) { background-color: #e74c3c; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+  </div>
+
+</body>
+</html>

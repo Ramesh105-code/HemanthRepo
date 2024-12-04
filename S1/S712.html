@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aligning Items in a Grid</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      grid-template-rows: repeat(2, 200px); /* 2 rows */
+      place-items: center; /* Center items horizontally and vertically */
+      gap: 10px;
+    }
+
+    .item {
+      border: 2px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .item:nth-child(1) { background-color: #ff5733; }
+    .item:nth-child(2) { background-color: #33c1ff; }
+    .item:nth-child(3) { background-color: #8e44ad; }
+    .item:nth-child(4) { background-color: #2ecc71; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+  </div>
+
+</body>
+</html>

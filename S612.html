@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploring Flex-Direction</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-direction: row; /* Initial layout: Items arranged in a row */
+      gap: 10px; /* Space between items */
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .flex-item {
+      width: 100px;
+      height: 100px;
+      background-color: #6200ea;
+      color: white;
+      display: flex;
+      justify-content: center; /* Center content horizontally inside each item */
+      align-items: center;    /* Center content vertically inside each item */
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    /* Switch to column layout */
+    .column-layout {
+      flex-direction: column; /* Changes layout to column direction */
+    }
+  </style>
+</head>
+<body>
+  <h1>Exploring Flex-Direction</h1>
+  
+  <div id="container" class="flex-container">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="flex-item">3</div>
+    <div class="flex-item">4</div>
+  </div>
+
+  <button onclick="toggleLayout()">Toggle Layout</button>
+
+  <script>
+    const container = document.getElementById('container');
+
+    function toggleLayout() {
+      // Toggle between row and column layouts
+      container.classList.toggle('column-layout');
+    }
+  </script>
+</body>
+</html>
