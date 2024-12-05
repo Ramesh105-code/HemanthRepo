@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixing Readability</title>
+  <style>
+    /* Base styles (mobile-first) */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-size: 14px; /* Default font size for smaller screens */
+      line-height: 1.5; /* Default line height for better readability */
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header, footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    h1, h2, h3, p {
+      margin-bottom: 15px;
+    }
+
+    /* For screens larger than 600px */
+    @media (min-width: 600px) {
+      body {
+        font-size: 16px; /* Increase font size for larger screens */
+        line-height: 1.6; /* Slightly increase line height for readability */
+      }
+
+      main {
+        padding: 40px;
+        max-width: 800px;
+        margin: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to the Responsive Webpage</h1>
+  </header>
+  <main>
+    <h2>Introduction</h2>
+    <p>
+      This webpage demonstrates how to improve readability on mobile devices using a mobile-first approach with media queries. Proper font size and line height ensure text is easy to read across all screen sizes.
+    </p>
+    <h3>Benefits of Readable Text</h3>
+    <p>
+      Good readability improves user engagement and reduces bounce rates. By using responsive techniques, you can cater to both mobile and desktop users effectively.
+    </p>
+  </main>
+  <footer>
+    <p>&copy; 2024 Your Company</p>
+  </footer>
+</body>
+</html>
