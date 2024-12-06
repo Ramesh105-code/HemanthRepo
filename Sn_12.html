@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic List</title>
+  <style>
+    .odd {
+      font-weight: bold;
+      color: blue;
+    }
+    .even {
+      font-style: italic;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <ul id="item-list">
+    <li class="odd">Item 1</li>
+    <li class="even">Item 2</li>
+    <li class="odd">Item 3</li>
+  </ul>
+  <button id="add-item-btn">Add Item</button>
+
+  <script>
+    // Select the <ul> and the button
+    const itemList = document.querySelector('#item-list');
+    const addItemBtn = document.querySelector('#add-item-btn');
+
+    // Add a click event listener to the button
+    addItemBtn.addEventListener('click', () => {
+      // Create a new <li> element
+      const newItem = document.createElement('li');
+
+      // Determine the sequence number of the new <li>
+      const itemCount = itemList.children.length + 1;
+
+      // Set the text content for the new <li>
+      newItem.textContent = `New Item ${itemCount}`;
+
+      // Apply styling based on the sequence number
+      if (itemCount % 2 === 0) {
+        newItem.classList.add('even');
+      } else {
+        newItem.classList.add('odd');
+      }
+
+      // Append the new <li> to the <ul>
+      itemList.appendChild(newItem);
+    });
+  </script>
+</body>
+</html>

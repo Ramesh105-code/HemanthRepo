@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Div</title>
+  <style>
+    #target-div {
+      width: 300px;
+      height: 150px;
+      margin: 20px 0;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Div</h1>
+  <label for="color-input">Enter a color:</label>
+  <input type="text" id="color-input" placeholder="e.g., red, #ff0000"><br><br>
+
+  <label for="text-input">Enter text:</label>
+  <input type="text" id="text-input" placeholder="Type something..."><br><br>
+
+  <button id="change-bg-btn">Change Background</button>
+  <button id="update-text-btn">Update Text</button>
+
+  <div id="target-div">Initial Text Content</div>
+
+  <script>
+    // Select DOM elements
+    const colorInput = document.getElementById('color-input');
+    const textInput = document.getElementById('text-input');
+    const changeBgBtn = document.getElementById('change-bg-btn');
+    const updateTextBtn = document.getElementById('update-text-btn');
+    const targetDiv = document.getElementById('target-div');
+
+    // Function to change the background color
+    changeBgBtn.addEventListener('click', () => {
+      const color = colorInput.value.trim();
+      // Create a temporary element to validate the color
+      const isValidColor = (color) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.style.backgroundColor = color;
+        return !!tempDiv.style.backgroundColor; // Returns true if valid, false otherwise
+      };
+
+      if (isValidColor(color)) {
+        targetDiv.style.backgroundColor = color;
+      } else {
+        alert('Invalid color name!');
+      }
+    });
+
+    // Function to update the text content
+    updateTextBtn.addEventListener('click', () => {
+      const text = textInput.value.trim();
+      if (text) {
+        targetDiv.textContent = text;
+      } else {
+        alert('Please enter some text!');
+      }
+    });
+  </script>
+</body>
+</html>
