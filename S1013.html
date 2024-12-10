@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Propagation Demo</title>
+  <style>
+    .outer { padding: 20px; background-color: lightblue; }
+    .middle { padding: 20px; background-color: lightgreen; }
+    .inner { padding: 20px; background-color: lightcoral; }
+  </style>
+</head>
+<body>
+  <div class="outer">
+    Outer Div
+    <button class="outer-button">Outer Button</button>
+    <div class="middle">
+      Middle Div
+      <button class="middle-button">Middle Button</button>
+      <div class="inner">
+        Inner Div
+        <button class="inner-button">Inner Button</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Select all elements
+    const outerDiv = document.querySelector('.outer');
+    const middleDiv = document.querySelector('.middle');
+    const innerDiv = document.querySelector('.inner');
+    const outerButton = document.querySelector('.outer-button');
+    const middleButton = document.querySelector('.middle-button');
+    const innerButton = document.querySelector('.inner-button');
+
+    // Helper function to add listeners
+    function addListeners(element, name) {
+      // Bubbling phase listener
+      element.addEventListener('click', () => {
+        alert(`${name} clicked (bubbling)`);
+      });
+
+      // Capturing phase listener
+      element.addEventListener('click', () => {
+        alert(`${name} clicked (capturing)`);
+      }, true);
+    }
+
+    // Add event listeners to all divs and buttons
+    addListeners(outerDiv, 'Outer Div');
+    addListeners(middleDiv, 'Middle Div');
+    addListeners(innerDiv, 'Inner Div');
+    addListeners(outerButton, 'Outer Button');
+    addListeners(middleButton, 'Middle Button');
+    addListeners(innerButton, 'Inner Button');
+
+    // Stop propagation on the innermost button
+    innerButton.addEventListener('click', (event) => {
+      alert('Event propagation stopped at Inner Button');
+      event.stopPropagation();
+    });
+  </script>
+</body>
+</html>

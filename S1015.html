@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #taskList {
+      list-style: none;
+      padding: 0;
+    }
+    .task-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .task-item.completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .task-item span {
+      flex: 1;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task Management App</h1>
+
+  <div>
+    <input id="taskInput" type="text" placeholder="Enter a task">
+    <button id="addTask">Add Task</button>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <button id="filterAll">All Tasks</button>
+    <button id="filterCompleted">Completed Tasks</button>
+    <button id="filterIncomplete">Incomplete Tasks</button>
+    <button id="sortTasks">Sort Alphabetically</button>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <p>Total Tasks: <span id="totalTasks">0</span></p>
+    <p>Completed Tasks: <span id="completedTasks">0</span></p>
+    <p>Incomplete Tasks: <span id="incompleteTasks">0</span></p>
+  </div>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    let tasks = [];
+
+    const taskInput = document.getElementById('taskInput');
+    const addTaskButton = document.getElementById('addTask');
+    const taskList = document.getElementById('taskList');
+    const totalTasks = document.getElementById('totalTasks');
+    const completedTasks = document.getElementById('completedTasks');
+    const incompleteTasks = document.getElementById('incompleteTasks');
+    const filterAllButton = document.getElementById('filterAll');
+    const filterCompletedButton = document.getElementById('filterCompleted');
+    const filterIncompleteButton = document.getElementById('filterIncomplete');
+    const sortTasksButton = document.getElementById('sortTasks');
+
+    // Helper function to update counters
+    function updateCounters() {
+      totalTasks.textContent = tasks.length;
+      completedTasks.textContent = tasks.filter(task => task.completed).length;
+      incompleteTasks.textContent = tasks.filter(task => !task.completed).length;
+    }
+
+    // Render tasks based on the provided filter
+    function renderTasks(filter = 'all') {
+      taskList.innerHTML = '';
+      let filteredTasks = tasks;
+
+      if (filter === 'completed') {
+        filteredTasks = tasks.filter(task => task.completed);
+      } else if (filter === 'incomplete') {
+        filteredTasks = tasks.filter(task => !task.completed);
+      }
+
+      filteredTasks.forEach(task => {
+        const li = document.createElement('li');
+        li.className = `task-item ${task.completed ? 'completed' : ''}`;
+        li.dataset.id = task.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.completed;
+        checkbox.addEventListener('click', toggleCompletion);
+
+        const span = document.createElement('span');
+        span.textContent = task.text;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', deleteTask);
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(deleteButton);
+        taskList.appendChild(li);
+      });
+
+      updateCounters();
+    }
+
+    // Add a new task
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (!taskText) {
+        alert('Please enter a task.');
+        return;
+      }
+
+      tasks.push({ id: Date.now(), text: taskText, completed: false });
+      taskInput.value = '';
+      renderTasks();
+    }
+
+    // Toggle task completion
+    function toggleCompletion(event) {
+      const taskId = parseInt(event.target.closest('li').dataset.id, 10);
+      const task = tasks.find(task => task.id === taskId);
+      if (task) {
+        task.completed = !task.completed;
+        renderTasks();
+      }
+    }
+
+    // Delete a task
+    function deleteTask(event) {
+      const taskId = parseInt(event.target.closest('li').dataset.id, 10);
+      tasks = tasks.filter(task => task.id !== taskId);
+      renderTasks();
+    }
+
+    // Sort tasks alphabetically
+    function sortTasks() {
+      tasks.sort((a, b) => a.text.localeCompare(b.text));
+      renderTasks();
+    }
+
+    // Add event listeners for filter buttons
+    filterAllButton.addEventListener('click', () => renderTasks('all'));
+    filterCompletedButton.addEventListener('click', () => renderTasks('completed'));
+    filterIncompleteButton.addEventListener('click', () => renderTasks('incomplete'));
+    sortTasksButton.addEventListener('click', sortTasks);
+    addTaskButton.addEventListener('click', addTask);
+
+    // Initial render
+    renderTasks();
+  </script>
+</body>
+</html>

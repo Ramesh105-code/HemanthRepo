@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Manipulation</title>
+</head>
+<body>
+  <div id="container">
+    <button id="addButton">Add Paragraph</button>
+    <button id="removeButton">Remove Last Paragraph</button>
+    <div id="paragraphContainer"></div>
+  </div>
+
+  <script>
+    // Select the required elements
+    const addButton = document.getElementById('addButton');
+    const removeButton = document.getElementById('removeButton');
+    const paragraphContainer = document.getElementById('paragraphContainer');
+
+    // Add a new paragraph when "Add Paragraph" is clicked
+    addButton.addEventListener('click', () => {
+      const newParagraph = document.createElement('p');
+      newParagraph.textContent = "This is a new paragraph.";
+      paragraphContainer.appendChild(newParagraph);
+    });
+
+    // Remove the last paragraph when "Remove Last Paragraph" is clicked
+    removeButton.addEventListener('click', () => {
+      const lastParagraph = paragraphContainer.lastChild;
+      if (lastParagraph) {
+        paragraphContainer.removeChild(lastParagraph);
+      } else {
+        alert("No paragraphs to remove!");
+      }
+    });
+  </script>
+</body>
+</html>
