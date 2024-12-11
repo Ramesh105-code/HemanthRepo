@@ -1,0 +1,58 @@
+<form id="preferencesForm">
+    <label for="theme">Theme:</label>
+    <select id="theme">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  
+    <label for="language">Language:</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="es">Spanish</option>
+    </select>
+  
+    <label for="notifications">Notifications:</label>
+    <input type="checkbox" id="notifications">
+  
+    <button type="submit">Save Preferences</button>
+  </form>
+  
+  <script>
+    const form = document.getElementById('preferencesForm');
+    const theme = document.getElementById('theme');
+    const language = document.getElementById('language');
+    const notifications = document.getElementById('notifications');
+  
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const preferences = {
+        theme: theme.value,
+        language: language.value,
+        notifications: notifications.checked
+      };
+      localStorage.setItem('preferences', JSON.stringify(preferences));
+      alert('Preferences Saved!');
+      applyTheme(preferences.theme); // Dynamically apply theme after saving
+    });
+  
+    window.onload = () => {
+      const preferences = localStorage.getItem('preferences');
+      if (preferences) {
+        const parsedPreferences = JSON.parse(preferences);
+        theme.value = parsedPreferences.theme;
+        language.value = parsedPreferences.language;
+        notifications.checked = parsedPreferences.notifications;
+        applyTheme(parsedPreferences.theme); // Apply the saved theme on load
+      }
+    };
+  
+    function applyTheme(selectedTheme) {
+      if (selectedTheme === 'dark') {
+        document.body.style.backgroundColor = '#333';
+        document.body.style.color = '#fff';
+      } else {
+        document.body.style.backgroundColor = '#fff';
+        document.body.style.color = '#000';
+      }
+    }
+  </script>

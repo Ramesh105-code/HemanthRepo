@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Theme Selector</h1>
+    <label for="theme-select">Choose a theme:</label>
+    <select id="theme-select" onchange="changeTheme()">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+    </select>
+
+    <script>
+        // Theme configurations
+        const themes = {
+            light: {
+                backgroundColor: '#ffffff',
+                color: '#000000'
+            },
+            dark: {
+                backgroundColor: '#333333',
+                color: '#ffffff'
+            },
+            blue: {
+                backgroundColor: '#007BFF',
+                color: '#ffffff'
+            }
+        };
+
+        // Apply theme based on selection
+        function applyTheme(theme) {
+            const selectedTheme = themes[theme];
+            document.body.style.backgroundColor = selectedTheme.backgroundColor;
+            document.body.style.color = selectedTheme.color;
+        }
+
+        // Change theme and save selection to sessionStorage
+        function changeTheme() {
+            const theme = document.getElementById('theme-select').value;
+            sessionStorage.setItem('selectedTheme', theme);
+            applyTheme(theme);
+        }
+
+        // Load theme from sessionStorage on page load
+        window.onload = function() {
+            const savedTheme = sessionStorage.getItem('selectedTheme') || 'light';
+            document.getElementById('theme-select').value = savedTheme;
+            applyTheme(savedTheme);
+        };
+    </script>
+</body>
+</html>

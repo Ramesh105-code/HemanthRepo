@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.save {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button.load {
+            background-color: #2196F3;
+            color: white;
+        }
+        button.clear {
+            background-color: #f44336;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notes App</h1>
+    <textarea id="notes" placeholder="Enter your notes here..."></textarea>
+    <div>
+        <button class="save" onclick="saveNotes()">Save Notes</button>
+        <button class="load" onclick="loadNotes()">Load Notes</button>
+        <button class="clear" onclick="clearNotes()">Clear Notes</button>
+    </div>
+
+    <script>
+        // Automatically load notes on page load
+        window.onload = function() {
+            loadNotes();
+        };
+
+        // Save notes to localStorage
+        function saveNotes() {
+            const notes = document.getElementById('notes').value.trim();
+            if (notes === '') {
+                alert('Cannot save empty notes!');
+                return;
+            }
+            localStorage.setItem('savedNotes', notes);
+            alert('Notes saved successfully!');
+        }
+
+        // Load notes from localStorage
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('savedNotes');
+            if (savedNotes) {
+                document.getElementById('notes').value = savedNotes;
+            } else {
+                document.getElementById('notes').value = '';
+            }
+        }
+
+        // Clear notes from localStorage
+        function clearNotes() {
+            localStorage.removeItem('savedNotes');
+            document.getElementById('notes').value = '';
+            alert('Notes cleared successfully!');
+        }
+    </script>
+</body>
+</html>
