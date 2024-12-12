@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Fetch App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #weather {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+    }
+    .error {
+      color: red;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather Fetch App</h1>
+  <form id="weatherForm">
+    <label for="city">City Name</label>
+    <input type="text" id="city" placeholder="Enter city name" required>
+    <button type="submit">Get Weather</button>
+  </form>
+  <div id="error" class="error" style="display: none;">Failed to fetch weather data. Please check the city name and try again.</div>
+  <div id="weather">
+    <!-- Weather data will be displayed here -->
+  </div>
+
+  <script>
+    const weatherForm = document.getElementById('weatherForm');
+    const cityInput = document.getElementById('city');
+    const weatherDisplay = document.getElementById('weather');
+    const errorDisplay = document.getElementById('error');
+
+    weatherForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const city = cityInput.value.trim();
+      if (city === '') {
+        alert('City name cannot be empty.');
+        return;
+      }
+      fetchWeather(city);
+    });
+
+    async function fetchWeather(city) {
+      const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeather API key
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        displayWeather(data);
+        errorDisplay.style.display = 'none';
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+        errorDisplay.style.display = 'block';
+        weatherDisplay.innerHTML = '';
+      }
+    }
+
+    function displayWeather(data) {
+      weatherDisplay.innerHTML = `
+        <h2>Weather in ${data.name}</h2>
+        <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
+        <p><strong>Condition:</strong> ${data.weather[0].description}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
