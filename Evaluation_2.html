@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Organizer System</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      box-shadow: 10px 10px 10px 10px rgb(239, 235, 235);
+      border: 2px solid black;
+
+    }
+    #folders, #files, #bin {
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: rgb(223, 221, 220);
+      border-radius: 18px;
+
+    }
+    .folder, .file-item, .bin-item {
+      margin: 25px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: blueviolet;
+      color: white;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 2cap;
+      box-shadow: 2px 2px 1px 0px black;
+      
+    }
+    .file-item, .bin-item {
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+
+    }
+    .file-item img, .bin-item img {
+      margin-right: 10px;
+      height: 100px;
+      border-radius: 10px;
+    
+    }
+    .file-item button, .bin-item button {
+      margin-left: auto;
+      background-color: crimson;
+      color: aliceblue;
+      font-size: 2cap;
+      border-radius: 10px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 10px;
+      background-color: rgb(8, 21, 8);
+       color:white;
+       box-shadow: 2px 2px 1px 0px black;
+
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <h1>File Organizer System</h1>
+  <div id="controls">
+    <input type="text" id="search" placeholder="Search files...">
+    <button id="sort-asc">Sort Ascending</button>
+    <button id="sort-desc">Sort Descending</button>
+  </div>
+  <div id="folders"></div>
+  <h2>Files</h2>
+  <div id="files"></div>
+  <h2>Bin</h2>
+  <div id="bin"></div>
+</center>
+  <script>
+    const files = [
+      'document1.txt', 'presentation1.pdf', 'song1.mp3', 'installer1.exe', 'archive1.rar',
+      'report1.docx', 'image1.jpg', 'graphic1.png', 'animation1.gif', 'compressed1.zip',
+      'document2.txt', 'presentation2.pdf', 'song2.mp3', 'installer2.exe', 'archive2.rar'
+    , 'installer1.exe',  'report3.docx', 'image1.jpg', 'graphic1.png', 
+    'animation1.gif', 'compressed1.zip', 'document2.txt', 'presentation2.pdf', 'song2.mp3',
+     'installer2.exe', 'archive1.rar', 'report1.docx', 'image1.jpg', 'graphic1.png',
+      'animation1.gif', 'compressed1.zip', 'document2.txt', 'presentation2.pdf', 'song2.mp3',
+       'installer2.exe', 'archive2.rar', 'report1.docx', 'image1.jpg', 'graphic1.png', 
+       'animation1.gif', 'compressed1.zip', 'document2.txt', 'presentation2.pdf', 'song2.mp3', 
+       'installer2.exe', 'archive2.rar', 'report1.docx', 'image1.jpg', 
+       'animation1.gif', 'compressed1.zip', 'document2.txt', 'presentation2.pdf', 'song2.mp3',
+     'installer2.exe', 'archive1.rar', 'report1.docx', 'image1.jpg', 'graphic1.png',
+      'animation1.gif', 'compressed1.zip', 'document2.txt', 'presentation2.pdf', 'song2.mp3',
+       'installer2.exe', 'archive2.rar', 'report1.docx', 'image1.jpg', 'graphic1.png', 
+       'animation1.gif', 'compressed1.zip', 'document2.txt', 'presentation2.pdf', 'song2.mp3', 
+       'installer2.exe', 'archive2.rar', 'report1.docx', 'image1.jpg', 
+    ];
+    const fileIcons = {
+      '.txt': 'https://via.placeholder.com/50?text=TXT',
+      '.pdf': 'https://via.placeholder.com/50?text=PDF',
+      '.mp3': 'https://via.placeholder.com/50?text=MP3',
+      '.exe': 'https://via.placeholder.com/50?text=EXE',
+      '.rar': 'https://via.placeholder.com/50?text=RAR',
+      '.docx': 'https://via.placeholder.com/50?text=DOCX',
+      '.jpg': 'https://via.placeholder.com/50?text=JPG',
+      '.png': 'https://via.placeholder.com/50?text=PNG',
+      '.gif': 'https://via.placeholder.com/50?text=GIF',
+      '.zip': 'https://via.placeholder.com/50?text=ZIP'
+    };
+    const bin = [];
+    let categorizedFiles = {};
+    let currentFolder = null;
+    function categorizeFiles() {
+      categorizedFiles = {};
+      files.forEach(file => {
+        const extension = file.slice(file.lastIndexOf('.'));
+        if (!categorizedFiles[extension]) {
+          categorizedFiles[extension] = [];
+        }
+        categorizedFiles[extension].push(file);
+      });
+    }
+    function renderFolders() {
+      const folderContainer = document.getElementById('folders');
+      folderContainer.innerHTML = '';
+      Object.keys(categorizedFiles).forEach(type => {
+        const folder = document.createElement('div');
+        folder.className = 'folder';
+        folder.textContent = type;
+        folder.onclick = () => openFolder(type);
+        folderContainer.appendChild(folder);
+      });
+    }
+    function openFolder(type) {
+      currentFolder = type;
+      const filesList = document.getElementById('files');
+      filesList.innerHTML = '';
+      categorizedFiles[type].forEach(file => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+
+        const icon = document.createElement('img');
+        icon.src = fileIcons[type] || 'https://via.placeholder.com/50?text=FILE';
+        icon.alt = type;
+
+        const fileName = document.createElement('span');
+        fileName.textContent = file.slice(0, file.lastIndexOf('.'));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteFile(type, file);
+
+        fileItem.appendChild(icon);
+        fileItem.appendChild(fileName);
+        fileItem.appendChild(deleteBtn);
+        filesList.appendChild(fileItem);
+      });
+    }
+    function searchFiles(query) {
+      const filesList = document.getElementById('files');
+      filesList.innerHTML = '';
+
+      categorizedFiles[currentFolder]
+        .filter(file => file.toLowerCase().includes(query.toLowerCase()))
+        .forEach(file => {
+          const fileItem = document.createElement('div');
+          fileItem.className = 'file-item';
+
+          const icon = document.createElement('img');
+          icon.src = fileIcons[currentFolder] || 'https://via.placeholder.com/50?text=FILE';
+          icon.alt = currentFolder;
+
+          const fileName = document.createElement('span');
+          fileName.textContent = file.slice(0, file.lastIndexOf('.'));
+
+          fileItem.appendChild(icon);
+          fileItem.appendChild(fileName);
+          filesList.appendChild(fileItem);
+        });
+    }
+    function sortFiles(order) {
+      categorizedFiles[currentFolder].sort((a, b) => {
+        if (order === 'asc') return a.localeCompare(b);
+        if (order === 'desc') return b.localeCompare(a);
+      });
+      openFolder(currentFolder);
+    }
+    function deleteFile(type, file) {
+      const index = categorizedFiles[type].indexOf(file);
+      if (index > -1) {
+        bin.push(categorizedFiles[type].splice(index, 1)[0]);
+        openFolder(type);
+        renderBin();
+      }
+    }
+    function renderBin() {
+      const binList = document.getElementById('bin');
+      binList.innerHTML = '';
+
+      bin.forEach(file => {
+        const binItem = document.createElement('div');
+        binItem.className = 'bin-item';
+        binItem.textContent = file;
+
+        const restoreBtn = document.createElement('button');
+        restoreBtn.textContent = 'Restore';
+        restoreBtn.onclick = () => restoreFile(file);
+
+        binItem.appendChild(restoreBtn);
+        binList.appendChild(binItem);
+      });
+    }
+    function restoreFile(file) {
+      const extension = file.slice(file.lastIndexOf('.'));
+      if (!categorizedFiles[extension]) {
+        categorizedFiles[extension] = [];
+      }
+      categorizedFiles[extension].push(file);
+      bin.splice(bin.indexOf(file), 1);
+      renderBin();
+      renderFolders();
+    }
+    function initialize() {
+      categorizeFiles();
+      renderFolders();
+      renderBin();
+
+      document.getElementById('search').oninput = (e) => searchFiles(e.target.value);
+      document.getElementById('sort-asc').onclick = () => sortFiles('asc');
+      document.getElementById('sort-desc').onclick = () => sortFiles('desc');
+    }
+    initialize();
+  </script>
+</body>
+</html>
