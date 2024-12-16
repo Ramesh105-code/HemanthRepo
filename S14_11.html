@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Paginated List</h1>
+    <div id="output"></div>
+    <div class="pagination">
+        <button id="prevBtn">Previous</button>
+        <span id="pageNumber">Page 1</span>
+        <button id="nextBtn">Next</button>
+    </div>
+
+    <script>
+        // Generate an array of 50 numbers (1 to 50)
+        const numbers = Array.from({ length: 50 }, (_, i) => i + 1);
+
+        // State variables
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        // DOM elements
+        const outputDiv = document.getElementById('output');
+        const pageNumberSpan = document.getElementById('pageNumber');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Function to display numbers for the current page
+        function displayPage(page) {
+            // Calculate start and end indices
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = page * itemsPerPage;
+
+            // Slice the numbers array to get the items for the current page
+            const pageNumbers = numbers.slice(startIndex, endIndex);
+
+            // Update the output div
+            outputDiv.textContent = pageNumbers.join(', ');
+
+            // Update the page number in the UI
+            pageNumberSpan.textContent = `Page ${page}`;
+
+            // Enable/disable navigation buttons
+            prevBtn.disabled = page === 1;
+            nextBtn.disabled = page === Math.ceil(numbers.length / itemsPerPage);
+
+            // Update button styles
+            prevBtn.classList.toggle('disabled', page === 1);
+            nextBtn.classList.toggle('disabled', page === Math.ceil(numbers.length / itemsPerPage));
+        }
+
+        // Event listeners for navigation buttons
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < Math.ceil(numbers.length / itemsPerPage)) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+
+        // Initial display
+        displayPage(currentPage);
+    </script>
+</body>
+</html>

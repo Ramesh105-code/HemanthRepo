@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Content Loading</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Content Loading</h1>
+    <ul id="itemList">
+        <!-- List items will be dynamically populated -->
+    </ul>
+    <button id="loadMoreBtn">Load More</button>
+    <p id="message" style="display: none;">No more items to load</p>
+
+    <script>
+        // Array of 30 string items
+        const items = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
+
+        // State variables
+        let itemsDisplayed = 0;
+        const itemsPerPage = 5;
+
+        // DOM elements
+        const itemList = document.getElementById('itemList');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const message = document.getElementById('message');
+
+        // Function to display items
+        function displayItems() {
+            // Calculate the number of items to display
+            const nextItems = items.slice(itemsDisplayed, itemsDisplayed + itemsPerPage);
+
+            // Append the next set of items to the list
+            nextItems.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                itemList.appendChild(li);
+            });
+
+            // Update the count of displayed items
+            itemsDisplayed += nextItems.length;
+
+            // Check if all items are displayed
+            if (itemsDisplayed >= items.length) {
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.classList.add('disabled');
+                message.style.display = 'block';
+            }
+        }
+
+        // Event listener for the Load More button
+        loadMoreBtn.addEventListener('click', displayItems);
+
+        // Initial display of items
+        displayItems();
+    </script>
+</body>
+</html>

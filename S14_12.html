@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 50%;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fruit Search</h1>
+    <input type="text" id="searchBar" placeholder="Search for a fruit...">
+    <ul id="fruitList">
+        <!-- Fruit list will be dynamically populated -->
+    </ul>
+
+    <script>
+        // Array of fruit names
+        const fruits = ["Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape", "Honeydew", "Indian Fig", "Jackfruit"];
+
+        // DOM elements
+        const searchBar = document.getElementById('searchBar');
+        const fruitList = document.getElementById('fruitList');
+
+        // Function to display fruits
+        function displayFruits(filter = '') {
+            // Clear the list
+            fruitList.innerHTML = '';
+
+            // Filter fruits based on the search term (case-insensitive)
+            const filteredFruits = fruits.filter(fruit => fruit.toLowerCase().includes(filter.toLowerCase()));
+
+            // Populate the list with filtered fruits
+            filteredFruits.forEach(fruit => {
+                const li = document.createElement('li');
+                li.textContent = fruit;
+                fruitList.appendChild(li);
+            });
+        }
+
+        // Event listener for the search bar
+        searchBar.addEventListener('input', (event) => {
+            displayFruits(event.target.value);
+        });
+
+        // Initial display of all fruits
+        displayFruits();
+    </script>
+</body>
+</html>

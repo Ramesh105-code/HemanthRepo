@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        button, select {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Gallery</h1>
+
+    <div class="controls">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+            <option value="all">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="furniture">Furniture</option>
+            <option value="appliances">Appliances</option>
+        </select>
+
+        <label for="sort">Sort:</label>
+        <select id="sort">
+            <option value="priceAsc">Price (Ascending)</option>
+            <option value="priceDesc">Price (Descending)</option>
+            <option value="nameAsc">Name (A-Z)</option>
+            <option value="nameDesc">Name (Z-A)</option>
+        </select>
+    </div>
+
+    <ul id="productList">
+        <!-- Product list will be dynamically populated -->
+    </ul>
+
+    <div class="pagination">
+        <button id="prevPage">Previous</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage">Next</button>
+    </div>
+
+    <script>
+        // Array of products
+        const products = [
+            { name: 'Phone', price: 800, category: 'electronics' },
+            { name: 'Laptop', price: 1500, category: 'electronics' },
+            { name: 'Tablet', price: 400, category: 'electronics' },
+            { name: 'Chair', price: 200, category: 'furniture' },
+            { name: 'Sofa', price: 700, category: 'furniture' },
+            { name: 'Desk', price: 300, category: 'furniture' },
+            { name: 'Monitor', price: 300, category: 'electronics' },
+            { name: 'Mouse', price: 50, category: 'electronics' },
+            { name: 'Keyboard', price: 100, category: 'electronics' },
+            { name: 'Bed', price: 1000, category: 'furniture' },
+            { name: 'Wardrobe', price: 1200, category: 'furniture' },
+            { name: 'Dining Table', price: 900, category: 'furniture' },
+            { name: 'Headphones', price: 150, category: 'electronics' },
+            { name: 'Bookshelf', price: 400, category: 'furniture' },
+            { name: 'Gaming Console', price: 500, category: 'electronics' },
+            { name: 'Refrigerator', price: 1800, category: 'appliances' },
+            { name: 'Washing Machine', price: 1500, category: 'appliances' },
+            { name: 'Microwave', price: 300, category: 'appliances' },
+            { name: 'Air Conditioner', price: 2500, category: 'appliances' },
+            { name: 'Blender', price: 100, category: 'appliances' }
+        ];
+
+        // State variables
+        let currentPage = 1;
+        const itemsPerPage = 3;
+        let filteredProducts = [...products];
+
+        // DOM elements
+        const productList = document.getElementById('productList');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortSelect = document.getElementById('sort');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+        const pageInfo = document.getElementById('pageInfo');
+
+        // Function to display products
+        function displayProducts() {
+            // Clear the current list
+            productList.innerHTML = '';
+
+            // Get the products for the current page
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageProducts = filteredProducts.slice(start, end);
+
+            // Populate the list
+            pageProducts.forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = `${product.name} - $${product.price} (${product.category})`;
+                productList.appendChild(li);
+            });
+
+            // Update pagination info
+            pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(filteredProducts.length / itemsPerPage)}`;
+
+            // Enable/disable pagination buttons
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === Math.ceil(filteredProducts.length / itemsPerPage);
+        }
+
+        // Function to filter and sort products
+        function updateProducts() {
+            const category = categoryFilter.value;
+            const sortOption = sortSelect.value;
+
+            // Filter by category
+            filteredProducts = category === 'all' ? [...products] : products.filter(product => product.category === category);
+
+            // Sort products
+            if (sortOption === 'priceAsc') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (sortOption === 'priceDesc') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            } else if (sortOption === 'nameAsc') {
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortOption === 'nameDesc') {
+                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+            }
+
+            // Reset to the first page and display
+            currentPage = 1;
+            displayProducts();
+        }
+
+        // Event listeners
+        categoryFilter.addEventListener('change', updateProducts);
+        sortSelect.addEventListener('change', updateProducts);
+        prevPageBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayProducts();
+            }
+        });
+        nextPageBtn.addEventListener('click', () => {
+            if (currentPage < Math.ceil(filteredProducts.length / itemsPerPage)) {
+                currentPage++;
+                displayProducts();
+            }
+        });
+
+        // Initial display
+        updateProducts();
+    </script>
+</body>
+</html>
