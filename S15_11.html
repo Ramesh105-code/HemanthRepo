@@ -1,10 +1,105 @@
-const moment = require('moment'); // Install this package with `npm install moment`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retrieve Users from Firebase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+    }
+    table {
+      width: 50%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #ddd;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Firebase Realtime Database - User List</h1>
+  <div id="userContainer">
+    <table id="userTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="userList">
+        <!-- User data will be dynamically inserted here -->
+      </tbody>
+    </table>
+    <div id="error" class="error"></div>
+  </div>
 
+  <script>
+    // Firebase Realtime Database URL
+    const DATABASE_URL = "https://YOUR_DATABASE_URL/users.json";
 
-console.log("Welcome to Node.js!");
+    // Fetch users from Firebase Realtime Database
+    async function fetchUsers() {
+      const userList = document.getElementById("userList");
+      const errorDiv = document.getElementById("error");
 
+      try {
+        const response = await fetch(DATABASE_URL);
 
-const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+        // Check for network errors
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.statusText}`);
+        }
 
+        // Parse the response data
+        const data = await response.json();
 
-console.log(`The current date and time is: ${currentDateTime}`);
+        // Clear the table and error message
+        userList.innerHTML = "";
+        errorDiv.textContent = "";
+
+        // Check if there are any users in the database
+        if (!data) {
+          userList.innerHTML = "<tr><td colspan='2'>No users found.</td></tr>";
+          return;
+        }
+
+        // Iterate over the user data and add rows to the table
+        Object.values(data).forEach(user => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+          `;
+          userList.appendChild(row);
+        });
+      } catch (error) {
+        console.error("Error fetching users:", error.message);
+        errorDiv.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Fetch users when the page loads
+    window.onload = fetchUsers;
+  </script>
+</body>
+</html>

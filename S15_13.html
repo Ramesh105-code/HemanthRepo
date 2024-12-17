@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add User to Firebase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      text-align: center;
+    }
+    form {
+      display: inline-block;
+      margin: auto;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      width: 90%;
+      margin: 10px 0;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Add User to Firebase Realtime Database</h1>
+  <form id="userForm">
+    <input type="text" id="name" placeholder="Enter Name" required><br>
+    <input type="email" id="email" placeholder="Enter Email" required><br>
+    <button type="submit">Add User</button>
+  </form>
+  <div id="message" class="message"></div>
+
+  <script>
+    // Firebase Realtime Database URL
+    const DATABASE_URL = "https://YOUR_DATABASE_URL/users.json";
+
+    // Reference to the form and message element
+    const form = document.getElementById('userForm');
+    const messageDiv = document.getElementById('message');
+
+    // Form submission event listener
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent form reload
+
+      // Get input values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      // Prepare the user data
+      const userData = {
+        name: name,
+        email: email
+      };
+
+      try {
+        // Send POST request to Firebase
+        const response = await fetch(DATABASE_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(userData)
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to add user: ${response.statusText}`);
+        }
+
+        // Success: display a message and clear the form
+        messageDiv.textContent = "User added successfully!";
+        messageDiv.className = "message success";
+        form.reset();
+      } catch (error) {
+        // Error handling: display error message
+        console.error("Error:", error.message);
+        messageDiv.textContent = `Error: ${error.message}`;
+        messageDiv.className = "message error";
+      }
+    });
+  </script>
+</body>
+</html>
