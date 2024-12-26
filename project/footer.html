@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Data Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #fff;
+      color: #000;
+    }
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    nav button {
+      background-color: #0071c2;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background-color: #005fa3;
+    }
+    .dynamic-data {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .grid div {
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="content">
+  <h1>Popular with Travelers from India</h1>
+  <nav>
+    <button onclick="showData('domestic')">Domestic Cities</button>
+    <button onclick="showData('international')">International Cities</button>
+    <button onclick="showData('regions')">Regions</button>
+    <button onclick="showData('countries')">Countries</button>
+    <button onclick="showData('places')">Places to Stay</button>
+  </nav>
+</header>
+
+<main class="content">
+  <section class="dynamic-data" id="data-section">
+    <p>Click a category to display the data.</p>
+  </section>
+</main>
+
+<script>
+  const data = {
+    domestic: [
+      "Srinagar hotels", "Bangalore hotels", "Ooty hotels", "Mumbai hotels", "Lonavala hotels", 
+      "Jaipur hotels", "Hyderabad hotels", "Chennai hotels", "Puri hotels", "Pondicherry hotels",
+      "Rishīkesh hotels", "Ayodhya hotels", "Varanasi hotels", "Pune hotels", "Varkala hotels",
+      "Munnar hotels", "New Delhi hotels", "Mysore hotels", "Gurgaon hotels", "Manāli hotels",
+      "Kodaikānāl hotels", "Shimla hotels", "Cochin hotels", "Kolkata hotels", "Mussoorie hotels",
+      "Udaipur hotels", "Mahabaleshwar hotels", "Bīr hotels", "Tirupati hotels", "Gokarna hotels",
+      "Nainital hotels", "Amritsar hotels", "Agra hotels", "Alleppey hotels", "Ahmedabad hotels",
+      "Darjeeling hotels", "Chikmagalūr hotels", "Hampi hotels", "Yercaud hotels", "Ujjain hotels",
+      "Jaisalmer hotels", "Tiruvannāmalai hotels", "Coimbatore hotels", "Trivandrum hotels",
+      "Madikeri hotels", "Alibaug hotels", "Baga hotels", "Vrindāvan hotels", "Haridwār hotels",
+      "Jodhpur hotels", "Madurai hotels", "Kasauli hotels", "Lucknow hotels", "Guwahati hotels",
+      "Shirdi hotels", "Karjat hotels", "Kasol hotels", "Vagamon hotels", "Dehradun hotels", 
+      "Udupi hotels"
+    ],
+    international: [
+      "Dubai hotels, United Arab Emirates", "Singapore hotels, Singapore", "Paris hotels, France",
+      "London hotels, United Kingdom", "Bangkok hotels, Thailand", "New York hotels, United States of America",
+      "Zurich hotels, Switzerland", "Amsterdam hotels, Netherlands", "Kuala Lumpur hotels, Malaysia",
+      "Barcelona hotels, Spain", "Colombo hotels, Sri Lanka", "Tokyo hotels, Japan", "Rome hotels, Italy",
+      "Toronto hotels, Canada", "Seoul hotels, South Korea", "Hanoi hotels, Vietnam", "Frankfurt hotels, Germany",
+      "Baku hotels, Azerbaijan", "Ho Chi Minh City hotels, Vietnam", "Abu Dhabi hotels, United Arab Emirates"
+    ],
+    regions: [
+      "Goa", "Delhi", "North Goa", "Coorg", "Pondicherry", "South Goa", "Chandigarh Region", "Wayanad", 
+      "Delhi NCR", "Bali", "Jim Corbett National Park", "Phuket Province", "Kabini River", "Pattaya", 
+      "Ranthambore National Park", "Leh Ladakh", "Gurugram Region", "Jammu & Kashmir", "Kerala", "Andaman Islands"
+    ],
+    countries: [
+      "India", "United States of America", "United Arab Emirates", "United Kingdom", "Thailand", "France",
+      "Sri Lanka", "Germany", "Italy", "Switzerland", "Singapore", "Canada", "Vietnam", "Spain", 
+      "Indonesia", "Japan", "Malaysia", "Netherlands", "Australia", "Nepal"
+    ],
+    places: [
+      "Resorts", "Hostels", "Homestays", "Cheap hotels", "Villas", "5-Star Hotels", "Beach Hotels", 
+      "Serviced apartments", "Pet-Friendly Hotels", "Family Hotels", "Guest Houses", "Luxury Hotels", 
+      "3-Star Hotels", "Apartments", "4-Star Hotels", "Cottages", "Boats", "Hotels with Pools", 
+      "Luxury Tents", "Hotels with Parking"
+    ]
+  };
+
+  function showData(category) {
+    const section = document.getElementById("data-section");
+    const items = data[category];
+    section.innerHTML = `
+      <div class="grid">
+        ${items.map(item => `<div>${item}</div>`).join('')}
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
