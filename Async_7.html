@@ -1,16 +1,44 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Slideshow</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Advanced Selectors Example</title>
+  <style>
+    /* Attribute selector */
+    input[type="text"] {
+      border: 2px solid black;
+      padding: 10px;
+    }
+
+    /* Pseudo-class for hover */
+    input[type="text"]:hover {
+      border-color: blue;
+    }
+
+    /* Pseudo-class for focus */
+    input[type="text"]:focus {
+      border-color: green;
+    }
+
+    /* Attribute selector and hover */
+    a[href^="https"]:hover {
+      color: red;
+    }
+
+    /* Active pseudo-class for buttons */
+    button:active {
+      background-color: darkred;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <div class="slideshow-container">
-        <img id="slideshow" src="" alt="Movie Slideshow">
-    </div>
-    <script src="script.js"></script>
+
+  <input type="text" placeholder="Hover and focus on me">
+
+  <a href="https://example.com">Hover over this secure link</a>
+
+  <button>Click Me</button>
+
 </body>
 </html>
- 
