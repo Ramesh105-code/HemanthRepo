@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive List Styling</title>
+  <style>
+    /* Style the first list item in bold */
+    ol li:first-child {
+      font-weight: bold;
+    }
+
+    /* Adjacent sibling combinator: Style the item directly after the first item */
+    ol li:first-child + li {
+      background-color: lightblue;
+    }
+
+    /* General sibling combinator: Style all items after the third item in italics */
+    ol li:nth-child(3) ~ li {
+      font-style: italic;
+    }
+
+    /* Hover effect: Apply distinct color to list items when hovered */
+    ol li:hover {
+      color: darkred;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Ordered List</h1>
+  <ol>
+    <li>First item (bold).</li>
+    <li>Second item (background color applied).</li>
+    <li>Third item.</li>
+    <li>Fourth item (italic).</li>
+    <li>Fifth item (italic).</li>
+  </ol>
+</body>
+</html>

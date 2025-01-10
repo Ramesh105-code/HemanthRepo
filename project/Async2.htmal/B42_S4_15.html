@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complex Navigation Styling</title>
+  <style>
+    /* Base styles for all navigation links */
+    nav a {
+      text-decoration: none;
+      font-size: 16px;
+      padding: 5px 10px;
+      margin: 5px;
+      display: inline-block;
+      transition: color 0.3s, background-color 0.3s;
+    }
+
+    /* Section-specific link colors (descendant combinator) */
+    nav .section-1 a {
+      color: darkblue;
+    }
+
+    nav .section-2 a {
+      color: darkgreen;
+    }
+
+    nav .section-3 a {
+      color: darkred;
+    }
+
+    /* :hover pseudo-class for all links */
+    nav a:hover {
+      color: white;
+      background-color: gray;
+    }
+
+    /* :active pseudo-class for all links */
+    nav a:active {
+      color: white;
+      background-color: black;
+    }
+
+    /* Child combinator: Style direct child links in each section */
+    nav .section-1 > a {
+      font-weight: bold;
+    }
+
+    nav .section-2 > a {
+      font-style: italic;
+    }
+
+    nav .section-3 > a {
+      text-decoration: underline;
+    }
+
+    /* Attribute selector with high specificity: Links with href starting with "https" */
+    nav a[href^="https"] {
+      color: orange !important; /* Override all other styles */
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="section-1">
+      <a href="https://example.com">External Link 1</a>
+      <a href="#section1-link2">Internal Link 2</a>
+      <div>
+        <a href="#section1-nested-link">Nested Link</a>
+      </div>
+    </div>
+    <div class="section-2">
+      <a href="https://example.org">External Link 3</a>
+      <a href="#section2-link2">Internal Link 4</a>
+      <div>
+        <a href="#section2-nested-link">Nested Link</a>
+      </div>
+    </div>
+    <div class="section-3">
+      <a href="https://example.net">External Link 5</a>
+      <a href="#section3-link2">Internal Link 6</a>
+      <div>
+        <a href="#section3-nested-link">Nested Link</a>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>

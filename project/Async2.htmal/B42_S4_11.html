@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styling with Descendant and Child Combinators</title>
+  <style>
+    /* Descendant combinator: Styles all <p> elements inside the <div> */
+    div p {
+      color: blue;
+    }
+
+    /* Child combinator: Styles only the direct child <p> of the <div> */
+    div > p {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>This is the direct child paragraph of the <div>.</p>
+    <section>
+      <p>This is a nested paragraph inside the <section> within the <div>.</p>
+    </section>
+  </div>
+</body>
+</html>

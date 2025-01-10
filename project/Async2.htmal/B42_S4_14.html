@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Styling</title>
+  <style>
+    /* Default styles for all buttons */
+    button {
+      font-size: 16px;
+      color: black;
+    }
+
+    /* Style buttons with the data-type="primary" attribute */
+    button[data-type="primary"] {
+      background-color: blue;
+    }
+
+    /* Style buttons with the class "cta" */
+    button.cta {
+      font-weight: bold;
+      background-color: green;
+    }
+
+    /* Resolve conflicts: Buttons with both data-type="primary" and class="cta" */
+    button[data-type="primary"].cta {
+      background-color: red;
+      font-weight: bold; /* Ensure bold text is applied */
+    }
+  </style>
+</head>
+<body>
+  <button class="cta" data-type="primary">Primary CTA</button>
+  <button data-type="primary">Primary Button</button>
+  <button class="cta">Secondary CTA</button>
+  <button>Default Button</button>
+</body>
+</html>
