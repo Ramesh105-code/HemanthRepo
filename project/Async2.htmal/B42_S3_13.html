@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styling with ID and Universal Selector</title>
+  <style>
+    /* Universal selector to remove default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Styling for the main title using ID selector */
+    #main-title {
+      font-size: 32px;
+      color: darkblue;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Styling for the subtitle using ID selector */
+    #subtitle {
+      font-size: 24px;
+      color: darkgreen;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    /* Styling for paragraphs */
+    p {
+      padding: 10px;
+      border: 1px solid lightgray;
+      margin: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="main-title">Welcome to My Styled Webpage</h1>
+  <h2 id="subtitle">A Demo of ID and Universal Selectors</h2>
+  <p>This is the first paragraph with padding and a soft border.</p>
+  <p>This is the second paragraph with similar styling applied.</p>
+  <p>This is the third paragraph to demonstrate consistent formatting.</p>
+</body>
+</html>
