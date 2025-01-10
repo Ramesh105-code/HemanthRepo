@@ -2,35 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Web Page</title>
+  <title>Advanced Selectors Example</title>
+  <style>
+    /* Attribute selector */
+    input[type="text"] {
+      border: 2px solid black;
+      padding: 10px;
+    }
+
+    /* Pseudo-class for hover */
+    input[type="text"]:hover {
+      border-color: blue;
+    }
+
+    /* Pseudo-class for focus */
+    input[type="text"]:focus {
+      border-color: green;
+    }
+
+    /* Attribute selector and hover */
+    a[href^="https"]:hover {
+      color: red;
+    }
+
+    /* Active pseudo-class for buttons */
+    button:active {
+      background-color: rgb(87, 122, 94);
+      color: rgb(248, 241, 241);
+    }
+    button:hover{
+      background-color:pink;
+      cursor:pointer ;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to My Website</h1>
-  <p>Hello, I am learning HTML!</p>
 
-  <!-- Image -->
-  <img src="https://via.placeholder.com/150" alt="Placeholder Image" style="display: block; margin-top: 20px;">
+  <input type="text" placeholder="Hover and focus on me">
 
-  <!-- Hyperlink -->
-  <p>
-    <a href="https://www.google.com" target="_blank">Visit Google</a>
-  </p>
+  <a href="https://example.com">Hover over this secure link</a>
 
-  <!-- Ordered List -->
-  <h2>My Favorite Hobbies</h2>
-  <ol>
-    <li>Reading</li>
-    <li>Drawing</li>
-    <li>Coding</li>
-  </ol>
+  <button>Click Me</button>
 
-  <!-- Unordered List -->
-  <h2>My Favorite Foods</h2>
-  <ul>
-    <li>Pizza</li>
-    <li>Burger</li>
-    <li>Sushi</li>
-  </ul>
 </body>
 </html>
