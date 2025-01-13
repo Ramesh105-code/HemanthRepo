@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Navbar</title>
+  <style>
+    /* Ensure no margins/padding are added by default */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .navbar {
+      display: flex;               /* Enable Flexbox layout */
+      justify-content: space-between;  /* Space out the logo and links */
+      align-items: center;         /* Align items vertically at the center */
+      background-color: #333;
+      padding: 10px 20px;          /* Adjust padding */
+    }
+
+    .logo {
+      color: white;
+      font-size: 24px;
+    }
+
+    .links {
+      display: flex;               /* Display links horizontally */
+      gap: 20px;                   /* Space between links */
+    }
+
+    .links a {
+      text-decoration: none;
+      color: white;
+      padding: 5px 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect for links */
+    .links a:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">Logo</div>
+    <div class="links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</body>
+</html>

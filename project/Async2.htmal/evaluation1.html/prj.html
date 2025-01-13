@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glint Homepage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #000;
+            color: #fff;
+            position: relative;
+            height: 100vh;
+            background-image: url('https://via.placeholder.com/1920x1080'); /* Placeholder for background image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: 0.1em;
+        }
+
+        .header-content h2 {
+            font-size: 1.5rem;
+            font-weight: lighter;
+            margin: 1rem 0;
+        }
+
+        .header-content .buttons {
+            margin-top: 1.5rem;
+        }
+
+        .header-content button {
+            padding: 1rem 2rem;
+            border: 2px solid #fff;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-content button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .header-logo span {
+            color: green;
+        }
+
+        /* Social Icons */
+        .social-icons {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        .social-icons a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        /* About Section */
+        .about {
+            background-color: #34C759;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .about h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .about-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .divider {
+            border: 1px solid white;
+            height: 50px;
+            margin: auto 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <section class="header">
+        <div class="header-overlay"></div>
+        <div class="header-logo">
+            Glint<span>.</span>
+        </div>
+        <div class="header-content">
+            <h2>WELCOME TO GLINT</h2>
+            <h1>We are a creative group<br> of people who design<br> influential brands and<br> digital experiences.</h1>
+            <div class="buttons">
+                <button>START A PROJECT</button>
+                <button>MORE ABOUT US</button>
+            </div>
+        </div>
+        <div class="social-icons">
+            <a href="#">&#xf09a; Facebook</a>
+            <a href="#">&#xf099; Twitter</a>
+            <a href="#">&#xf16d; Instagram</a>
+            <a href="#">&#xf16a; Behance</a>
+            <a href="#">&#xf1b2; Dribbble</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <h1>We Are Glint</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="about-stats">
+            <div class="stat">
+                <h2>127</h2>
+                <p>Awards Received</p>
+            </div>
+            <div class="divider"></div>
+            <div class="stat">
+                <h2>1505</h2>
+                <p>Cups of Coffee</p>
+            </div>
+            <div class="divider"></div>
+            <div class="stat">
+                <h2>109</h2>
+                <p>Projects Completed</p>
+            </div>
+            <div class="divider"></div>
+            <div class="stat">
+                <h2>102</h2>
+                <p>Happy Clients</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Direction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 80%;
+            border: 1px solid #000;
+            /* Initially arrange items in a row (default behavior of flexbox) */
+            flex-direction: row;
+        }
+
+        /* Item styling */
+        .item {
+            background-color: lightgreen;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            width: 60px;
+            height: 60px;
+        }
+
+        /* Change layout to column */
+        .container.column {
+            flex-direction: column; /* Arrange items in a column */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+    </div>
+
+    <button onclick="toggleDirection()">Toggle Direction</button>
+
+    <script>
+        // Function to toggle between row and column layout
+        function toggleDirection() {
+            const container = document.querySelector('.container');
+            container.classList.toggle('column');
+        }
+    </script>
+</body>
+</html>
