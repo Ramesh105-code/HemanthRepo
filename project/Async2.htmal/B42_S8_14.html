@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Grid Layout</title>
+    <style>
+        /* Base styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .gallery {
+            display: grid;
+            grid-gap: 16px;
+            padding: 16px;
+        }
+
+        .gallery-item {
+            background-color: #ddd;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Large screens (≥ 1024px) */
+        @media (min-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            }
+        }
+
+        /* Medium screens (768px to 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns */
+                justify-items: stretch; /* Ensures proper alignment */
+            }
+        }
+
+        /* Small screens (< 768px) */
+        @media (max-width: 767px) {
+            .gallery {
+                grid-template-columns: 1fr; /* 1 column */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="gallery-item">Item 1</div>
+        <div class="gallery-item">Item 2</div>
+        <div class="gallery-item">Item 3</div>
+        <div class="gallery-item">Item 4</div>
+        <div class="gallery-item">Item 5</div>
+        <div class="gallery-item">Item 6</div>
+        <div class="gallery-item">Item 7</div>
+        <div class="gallery-item">Item 8</div>
+    </section>
+</body>
+</html>

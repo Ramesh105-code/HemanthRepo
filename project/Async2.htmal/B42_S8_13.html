@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <style>
+        /* Base styles for the navbar */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .menu li {
+            margin: 0 1rem;
+        }
+
+        .navbar .menu a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .navbar .menu a:hover {
+            color: #4CAF50;
+        }
+
+        /* Hamburger menu for small screens */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1023px) {
+            /* Medium screens: stack items vertically */
+            .navbar .menu {
+                flex-direction: column;
+                display: none; /* Initially hidden */
+                width: 100%;
+                background-color: #333;
+            }
+
+            .navbar .menu li {
+                text-align: center;
+                padding: 0.5rem 0;
+                margin: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .navbar.active .menu {
+                display: flex; /* Show menu when active */
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Small screens: additional adjustments if necessary */
+            .navbar .menu {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Logo</div>
+        <span class="hamburger" onclick="toggleMenu()">☰</span>
+        <ul class="menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Section -->
+    <section style="padding: 2rem;">
+        <h1>Responsive Navbar</h1>
+        <p>
+            Resize the browser to see how the navbar adapts to different screen sizes.
+        </p>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
