@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Propagation Exploration</title>
+  <style>
+    .box {
+      border: 2px solid #ccc;
+      padding: 20px;
+      margin: 10px;
+    }
+    .outer {
+      background-color: #f0f8ff;
+    }
+    .middle {
+      background-color: #e6e6fa;
+    }
+    .inner {
+      background-color: #ffe4e1;
+    }
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Event Propagation Exploration</h1>
+  <div class="box outer" id="outer">
+    Outer Div
+    <div class="box middle" id="middle">
+      Middle Div
+      <div class="box inner" id="inner">
+        Inner Div
+        <button id="innerButton">Inner Button</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add event listeners for each div
+    const outerDiv = document.getElementById("outer");
+    const middleDiv = document.getElementById("middle");
+    const innerDiv = document.getElementById("inner");
+    const innerButton = document.getElementById("innerButton");
+
+    // Generic function to handle events
+    function handleEvent(event, elementName) {
+      alert(`${elementName} clicked in ${event.eventPhase === 1 ? "capturing" : "bubbling"} phase`);
+    }
+
+    // Adding listeners for bubbling and capturing phases
+    [outerDiv, middleDiv, innerDiv].forEach((div, index) => {
+      const name = ["Outer Div", "Middle Div", "Inner Div"][index];
+      div.addEventListener("click", (event) => handleEvent(event, name), false); // Bubbling phase
+      div.addEventListener("click", (event) => handleEvent(event, name), true);  // Capturing phase
+    });
+
+    // Add event listeners for the inner button
+    innerButton.addEventListener("click", (event) => {
+      alert("Inner Button clicked");
+      event.stopPropagation(); // Stops further propagation
+    });
+
+    innerButton.addEventListener("click", () => {
+      console.log("Inner Button action completed.");
+    });
+  </script>
+</body>
+</html>

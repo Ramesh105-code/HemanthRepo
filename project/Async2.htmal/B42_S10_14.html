@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Task List</title>
+</head>
+<body>
+  <input id="taskInput" type="text" placeholder="Enter task">
+  <button id="addTask">Add Task</button>
+  <ul id="taskList"></ul>
+
+  <script>
+    const addTaskButton = document.getElementById('addTask');
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    // Add a task to the list
+    addTaskButton.onclick = function () {
+      const taskText = taskInput.value.trim(); // Trim to remove unnecessary spaces
+      if (taskText === '') {
+        alert('Task cannot be empty!');
+        return;
+      }
+      const newTask = document.createElement('li');
+      newTask.textContent = taskText; // Use textContent to avoid potential HTML injection
+      taskList.appendChild(newTask); // Fix: Correct method is appendChild
+      taskInput.value = ''; // Clear the input field after adding a task
+    };
+
+    // Remove a task when clicked
+    taskList.onclick = function (e) {
+      if (e.target.tagName === 'LI') { // Fix: Correct property is target.tagName
+        e.target.remove(); // Remove the clicked task
+      }
+    };
+  </script>
+</body>
+</html>

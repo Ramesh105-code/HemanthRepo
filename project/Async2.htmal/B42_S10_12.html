@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traversing the DOM: Parent and Sibling Navigation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #container {
+      margin-top: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px;
+      background-color: #f0f0f0;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+    li:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Traversing the DOM</h1>
+  <div id="container">
+    <ul id="list">
+      <li id="item1">Item 1</li>
+      <li id="item2">Item 2</li>
+      <li id="item3">Item 3</li>
+    </ul>
+  </div>
+
+  <script>
+    // Select "Item 2" by its ID
+    const item2 = document.getElementById("item2");
+
+    // Add a click event listener to "Item 2"
+    item2.addEventListener("click", () => {
+      // Get and alert the parent node's text content
+      const parentNode = item2.parentNode;
+      alert(`Parent content: ${parentNode.textContent.trim()}`);
+
+      // Get and log the next and previous siblings
+      const previousSibling = item2.previousElementSibling;
+      const nextSibling = item2.nextElementSibling;
+
+      if (previousSibling) {
+        console.log(`Previous sibling content: ${previousSibling.textContent}`);
+      } else {
+        console.log("No previous sibling.");
+      }
+
+      if (nextSibling) {
+        console.log(`Next sibling content: ${nextSibling.textContent}`);
+      } else {
+        console.log("No next sibling.");
+      }
+    });
+  </script>
+</body>
+</html>
