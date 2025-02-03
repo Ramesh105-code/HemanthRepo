@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase User Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        form {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .edit-btn {
+            background-color: #ffc107;
+        }
+        .edit-btn:hover {
+            background-color: #e0a800;
+        }
+        #message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>User Management</h2>
+    
+    <!-- Add User Form -->
+    <form id="userForm">
+        <input type="hidden" id="userId">
+        <input type="text" id="name" placeholder="Enter name" required>
+        <input type="email" id="email" placeholder="Enter email" required>
+        <button type="submit">Save User</button>
+    </form>
+
+    <p id="message"></p>
+
+    <!-- User Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
+            <!-- User data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        const databaseURL = "https://your-database-url/users.json"; // Replace with your Firebase database URL
+
+        // Fetch users from Firebase and display them
+        async function fetchUsers() {
+            try {
+                let response = await fetch(databaseURL);
+                let data = await response.json();
+                let tableBody = document.getElementById("userTable");
+                tableBody.innerHTML = "";
+
+                if (data) {
+                    Object.keys(data).forEach(userId => {
+                        let user = data[userId];
+                        let row = `<tr>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>
+                                <button class="edit-btn" onclick="editUser('${userId}', '${user.name}', '${user.email}')">Edit</button>
+                            </td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        }
+
+        // Add or Update User
+        document.getElementById("userForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            let userId = document.getElementById("userId").value;
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+
+            if (!name || !email) {
+                document.getElementById("message").innerText = "Please fill all fields.";
+                return;
+            }
+
+            let newUser = { name, email };
+
+            try {
+                let method = userId ? "PATCH" : "POST";
+                let url = userId ? `https://your-database-url/users/${userId}.json` : databaseURL;
+
+                let response = await fetch(url, {
+                    method: method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newUser)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to save user.");
+                }
+
+                document.getElementById("message").innerText = userId ? "User updated successfully!" : "User added successfully!";
+                document.getElementById("message").style.color = "green";
+                document.getElementById("userForm").reset();
+                document.getElementById("userId").value = ""; // Clear hidden input
+                fetchUsers();
+
+            } catch (error) {
+                document.getElementById("message").innerText = "Error: " + error.message;
+                document.getElementById("message").style.color = "red";
+            }
+        });
+
+        // Edit User - Populate the form
+        function editUser(userId, name, email) {
+            document.getElementById("userId").value = userId;
+            document.getElementById("name").value = name;
+            document.getElementById("email").value = email;
+        }
+
+        // Load users when the page loads
+        fetchUsers();
+    </script>
+
+</body>
+</html>

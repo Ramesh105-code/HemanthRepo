@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Counter</title>
+  <style>
+    .counter {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="counter">
+    <span id="counter-value">0</span>
+  </div>
+
+  <div class="buttons">
+    <button id="increment-btn">Increment</button>
+    <button id="decrement-btn">Decrement</button>
+  </div>
+
+  <script>
+    // Create the counter factory function
+    function createCounter(initialValue) {
+      let counter = initialValue;
+
+      // Increment method
+      function increment() {
+        counter++;
+        updateUI();  // Update the UI after the increment
+      }
+
+      // Decrement method
+      function decrement() {
+        counter--;
+        updateUI();  // Update the UI after the decrement
+      }
+
+      // Function to update the UI
+      function updateUI() {
+        document.getElementById("counter-value").textContent = counter;
+      }
+
+      // Return the methods for external use
+      return {
+        increment: increment,
+        decrement: decrement
+      };
+    }
+
+    // Initialize the counter with an initial value of 0
+    const counter = createCounter(0);
+
+    // Attach event listeners to buttons
+    document.getElementById("increment-btn").addEventListener("click", counter.increment);
+    document.getElementById("decrement-btn").addEventListener("click", counter.decrement);
+  </script>
+
+</body>
+</html>

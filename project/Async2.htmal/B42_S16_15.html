@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase User Management</title>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Firebase User Management</h2>
+
+    <div>
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="email" id="email" placeholder="Enter Email">
+        <button onclick="addUser()">Add User</button>
+    </div>
+
+    <table id="userTable">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+    <script>
+        // 🔥 Firebase Configuration (Replace with your Firebase project details)
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-project-id.firebaseapp.com",
+            databaseURL: "https://your-project-id.firebaseio.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const usersRef = db.ref("users");
+
+        // 📝 Function to update user table dynamically
+        function updateUserTable(users) {
+            let table = document.getElementById("userTable");
+            table.innerHTML = `
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+            `;
+
+            for (let key in users) {
+                let user = users[key];
+                let lastUpdated = new Date(user.timestamp || Date.now()).toLocaleString();
+
+                let row = `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${lastUpdated}</td>
+                        <td>
+                            <button onclick="editUser('${key}', '${user.name}', '${user.email}')">Edit</button>
+                            <button onclick="deleteUser('${key}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                table.innerHTML += row;
+            }
+        }
+
+        // 🔄 Real-time listener to update table when Firebase changes
+        usersRef.on("value", (snapshot) => {
+            if (snapshot.exists()) {
+                updateUserTable(snapshot.val());
+            } else {
+                document.getElementById("userTable").innerHTML = "<tr><td colspan='4'>No users found.</td></tr>";
+            }
+        });
+
+        // ➕ Function to add a new user
+        function addUser() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+
+            if (name && email) {
+                let newUserRef = usersRef.push();
+                newUserRef.set({
+                    name: name,
+                    email: email,
+                    timestamp: Date.now()
+                });
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+            } else {
+                alert("Please enter a name and email.");
+            }
+        }
+
+        // ✏️ Function to edit user details
+        function editUser(key, name, email) {
+            let newName = prompt("Enter new name:", name);
+            let newEmail = prompt("Enter new email:", email);
+
+            if (newName && newEmail) {
+                usersRef.child(key).update({
+                    name: newName,
+                    email: newEmail,
+                    timestamp: Date.now()
+                });
+            }
+        }
+
+        // ❌ Function to delete user
+        function deleteUser(key) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                usersRef.child(key).remove();
+            }
+        }
+    </script>
+
+</body>
+</html>

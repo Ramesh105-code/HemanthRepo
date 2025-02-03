@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase CRUD with Real-Time Updates</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background: #f4f4f4; }
+        form { margin: 20px 0; }
+        input, button { padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+
+    <h2>Firebase User Management</h2>
+
+    <!-- Add User Form -->
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <button type="submit">Add User</button>
+    </form>
+
+    <!-- Users Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            <!-- User rows will be added dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        // 🔥 Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // 🔥 Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // 📌 Fetch & Display Users (Real-Time Updates)
+        const userTableBody = document.getElementById("userTableBody");
+
+        function loadUsers() {
+            database.ref("users").on("value", (snapshot) => {
+                userTableBody.innerHTML = ""; // Clear table
+                snapshot.forEach((childSnapshot) => {
+                    const userId = childSnapshot.key;
+                    const user = childSnapshot.val();
+                    addUserRow(userId, user.name, user.email);
+                });
+            });
+        }
+
+        // 📌 Add User Row to Table
+        function addUserRow(userId, name, email) {
+            const row = document.createElement("tr");
+            row.id = `user-${userId}`;
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${email}</td>
+                <td>
+                    <button onclick="editUser('${userId}', '${name}', '${email}')">Edit</button>
+                    <button onclick="deleteUser('${userId}')">Delete</button>
+                </td>
+            `;
+            userTableBody.appendChild(row);
+        }
+
+        // 📌 Add User
+        document.getElementById("userForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            
+            if (name && email) {
+                const newUserRef = database.ref("users").push();
+                newUserRef.set({ name, email })
+                    .then(() => { console.log("User added!"); document.getElementById("userForm").reset(); })
+                    .catch(error => console.error("Error adding user:", error));
+            }
+        });
+
+        // 📌 Edit User
+        function editUser(userId, currentName, currentEmail) {
+            const newName = prompt("Update Name:", currentName);
+            const newEmail = prompt("Update Email:", currentEmail);
+            if (newName && newEmail) {
+                database.ref(`users/${userId}`).update({ name: newName, email: newEmail })
+                    .then(() => console.log("User updated!"))
+                    .catch(error => console.error("Error updating user:", error));
+            }
+        }
+
+        // 📌 Delete User (Fixed Bug)
+        function deleteUser(userId) {
+            database.ref(`users/${userId}`).remove()
+                .then(() => {
+                    console.log("User deleted!");
+                    document.getElementById(`user-${userId}`).remove(); // Remove from UI
+                })
+                .catch(error => console.error("Error deleting user:", error));
+        }
+
+        // 🔥 Load users on page load
+        loadUsers();
+    </script>
+
+</body>
+</html>

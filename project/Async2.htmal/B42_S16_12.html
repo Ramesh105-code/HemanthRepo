@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User to Firebase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        form {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Add User</h2>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Enter name" required>
+        <input type="email" id="email" placeholder="Enter email" required>
+        <button type="submit">Add User</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        const databaseURL = "https://your-database-url/users.json"; // Replace with your Firebase database URL
+
+        document.getElementById("userForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+
+            if (!name || !email) {
+                document.getElementById("message").innerText = "Please fill all fields.";
+                return;
+            }
+
+            let newUser = { name, email };
+
+            try {
+                let response = await fetch(databaseURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newUser)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to add user.");
+                }
+
+                document.getElementById("message").innerText = "User added successfully!";
+                document.getElementById("message").style.color = "green";
+                document.getElementById("userForm").reset();
+
+            } catch (error) {
+                document.getElementById("message").innerText = "Error: " + error.message;
+                document.getElementById("message").style.color = "red";
+            }
+        });
+    </script>
+
+</body>
+</html>

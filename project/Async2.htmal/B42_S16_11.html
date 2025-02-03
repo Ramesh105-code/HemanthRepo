@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Users List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Users List</h2>
+    <p id="message">Fetching data...</p>
+    
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const databaseURL = "https://your-database-url/users.json"; // Replace with your Firebase database URL
+
+        async function fetchUsers() {
+            try {
+                let response = await fetch(databaseURL);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data");
+                }
+
+                let data = await response.json();
+                let tableBody = document.querySelector("#usersTable tbody");
+                tableBody.innerHTML = "";
+
+                if (data) {
+                    Object.values(data).forEach(user => {
+                        let row = `<tr>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                    document.getElementById("message").style.display = "none";
+                } else {
+                    document.getElementById("message").innerText = "No users found.";
+                }
+
+            } catch (error) {
+                document.getElementById("message").innerText = "Error: " + error.message;
+            }
+        }
+
+        fetchUsers();
+    </script>
+
+</body>
+</html>

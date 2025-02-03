@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Search Feature</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+</head>
+<body>
+
+    <h2>Search Users</h2>
+    <input type="text" id="searchInput" placeholder="Enter name to search...">
+    <button onclick="searchUsers()">Search</button>
+
+    <script>
+        // 🔥 Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // 🔥 Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // 📌 Search Users Function
+        function searchUsers() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            
+            if (!searchTerm) {
+                console.log("Please enter a search term!");
+                return;
+            }
+
+            database.ref("users").once("value")
+                .then(snapshot => {
+                    const users = snapshot.val();
+                    const filteredUsers = [];
+
+                    // Filter users by name (case-insensitive)
+                    for (let key in users) {
+                        if (users[key].name.toLowerCase().includes(searchTerm)) {
+                            filteredUsers.push(users[key]);
+                        }
+                    }
+
+                    console.log("Search Results:", filteredUsers);
+                })
+                .catch(error => console.error("Error fetching users:", error));
+        }
+    </script>
+
+</body>
+</html>

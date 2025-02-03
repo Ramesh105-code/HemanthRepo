@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Pagination</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+</head>
+<body>
+
+    <h2>User List (Paginated)</h2>
+    <ul id="userList"></ul>
+
+    <button onclick="prevPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+
+    <script>
+        // 🔥 Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // 🔥 Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // 📌 Pagination Variables
+        const usersPerPage = 5;
+        let currentPage = 1;
+        let allUsers = [];
+
+        // 📌 Fetch Users from Firebase
+        function fetchUsers() {
+            database.ref("users").once("value")
+                .then(snapshot => {
+                    allUsers = Object.values(snapshot.val() || {});
+                    displayUsers();
+                })
+                .catch(error => console.error("Error fetching users:", error));
+        }
+
+        // 📌 Display Users Based on Page
+        function displayUsers() {
+            const start = (currentPage - 1) * usersPerPage;
+            const end = start + usersPerPage;
+            const paginatedUsers = allUsers.slice(start, end);
+
+            console.clear();
+            console.log(`Page ${currentPage}:`, paginatedUsers);
+
+            // Update UI
+            const userList = document.getElementById("userList");
+            userList.innerHTML = "";
+            paginatedUsers.forEach(user => {
+                const li = document.createElement("li");
+                li.textContent = `${user.name} - ${user.email}`;
+                userList.appendChild(li);
+            });
+        }
+
+        // 📌 Next Page
+        function nextPage() {
+            if (currentPage * usersPerPage < allUsers.length) {
+                currentPage++;
+                displayUsers();
+            }
+        }
+
+        // 📌 Previous Page
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayUsers();
+            }
+        }
+
+        // 🔥 Fetch Users on Page Load
+        fetchUsers();
+    </script>
+
+</body>
+</html>
