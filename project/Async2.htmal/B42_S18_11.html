@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScript Counter</title>
-  <style>
-    .counter {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .buttons {
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter with Closures</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #counter {
+            font-size: 2rem;
+            margin: 20px;
+        }
+        button {
+            font-size: 1.2rem;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="counter">
-    <span id="counter-value">0</span>
-  </div>
+    <h2>JavaScript Counter</h2>
+    <div id="counter">0</div>
+    <button id="incrementBtn">➕ Increment</button>
+    <button id="decrementBtn">➖ Decrement</button>
 
-  <div class="buttons">
-    <button id="increment-btn">Increment</button>
-    <button id="decrement-btn">Decrement</button>
-  </div>
+    <script>
+        // 🔥 Counter Factory Function using Closures
+        function createCounter(initialValue = 0) {
+            let count = initialValue; // Private variable
 
-  <script>
-    // Create the counter factory function
-    function createCounter(initialValue) {
-      let counter = initialValue;
+            return {
+                increment: function() {
+                    count++;
+                    updateUI();
+                },
+                decrement: function() {
+                    count--;
+                    updateUI();
+                },
+                getCount: function() {
+                    return count;
+                }
+            };
+        }
 
-      // Increment method
-      function increment() {
-        counter++;
-        updateUI();  // Update the UI after the increment
-      }
+        // 📌 Create Counter Instance
+        const counter = createCounter(0);
 
-      // Decrement method
-      function decrement() {
-        counter--;
-        updateUI();  // Update the UI after the decrement
-      }
+        // 📌 Update UI Function
+        function updateUI() {
+            document.getElementById("counter").textContent = counter.getCount();
+        }
 
-      // Function to update the UI
-      function updateUI() {
-        document.getElementById("counter-value").textContent = counter;
-      }
-
-      // Return the methods for external use
-      return {
-        increment: increment,
-        decrement: decrement
-      };
-    }
-
-    // Initialize the counter with an initial value of 0
-    const counter = createCounter(0);
-
-    // Attach event listeners to buttons
-    document.getElementById("increment-btn").addEventListener("click", counter.increment);
-    document.getElementById("decrement-btn").addEventListener("click", counter.decrement);
-  </script>
+        // 📌 Attach Event Listeners
+        document.getElementById("incrementBtn").addEventListener("click", counter.increment);
+        document.getElementById("decrementBtn").addEventListener("click", counter.decrement);
+    </script>
 
 </body>
 </html>
