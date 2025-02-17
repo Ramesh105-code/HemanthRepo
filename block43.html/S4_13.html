@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive List Styling</title>
+  <style>
+    /* Style for the first list item */
+    ol li:first-child {
+      font-weight: bold;
+    }
+
+    /* Adjacent sibling combinator: Apply background color to the second list item */
+    ol li:first-child + li {
+      background-color: lightblue;
+    }
+
+    /* General sibling combinator: Apply italics to all list items following the third item */
+    ol li:nth-child(3) ~ li {
+      font-style: italic;
+    }
+
+    /* Hover pseudo-class: Change color when a list item is hovered */
+    ol li:hover {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <ol>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+  </ol>
+</body>
+</html>

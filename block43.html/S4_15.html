@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complex Navigation Bar</title>
+  <style>
+    /* General styles for the navigation bar */
+    nav {
+      background-color: #333;
+      padding: 10px;
+    }
+
+    /* Style for the main sections */
+    nav .section {
+      margin-bottom: 15px;
+    }
+
+    /* Style for all links */
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      display: inline-block;
+    }
+
+    /* Hover state for all links */
+    nav a:hover {
+      background-color: #555;
+    }
+
+    /* Active state for all links */
+    nav a:active {
+      background-color: #777;
+    }
+
+    /* Descendant combinator for styling links inside each section */
+    nav .section1 a {
+      color: lightblue;
+    }
+
+    nav .section2 a {
+      color: lightgreen;
+    }
+
+    nav .section3 a {
+      color: lightcoral;
+    }
+
+    /* Child combinator: styling direct child links in each section */
+    nav .section1 > a {
+      font-weight: bold;
+    }
+
+    nav .section2 > a {
+      text-transform: uppercase;
+    }
+
+    nav .section3 > a {
+      font-style: italic;
+    }
+
+    /* Specificity for links starting with https */
+    nav a[href^="https"] {
+      color: yellow !important;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="section section1">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="https://example.com">External Link</a>
+    </div>
+    <div class="section section2">
+      <a href="#">Services</a>
+      <a href="#">Portfolio</a>
+      <a href="https://anotherexample.com">External Service</a>
+    </div>
+    <div class="section section3">
+      <a href="#">Contact</a>
+      <a href="#">Blog</a>
+      <a href="https://yetanotherexample.com">External Blog</a>
+    </div>
+  </nav>
+</body>
+</html>
