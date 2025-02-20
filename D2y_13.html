@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
-    <style>
-        section {
-            display: inline-block;
-            margin: 20px;
-            text-align: center;
-        }
-        img {
-            width: 200px; /* Adjust the image size */
-            height: auto;
-            border: 2px solid #ccc;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>CSS Selectors Example</title>
+  <style>
+    /* Universal selector */
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Element selector */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    /* Class selector */
+    .highlight {
+      background-color: yellow;
+      font-weight: bold;
+    }
+
+    /* ID selector */
+    #main-title {
+      color: darkblue;
+      text-align: center;
+      font-size: 36px;
+    }
+  </style>
 </head>
 <body>
-
-    <h1>Image Gallery</h1>
-
-    <section>
-        <img src="https://via.placeholder.com/200" alt="Placeholder Image 1">
-        <br>
-        <a href="https://www.example.com" target="_blank">Visit Resource 1</a>
-    </section>
-
-    <section>
-        <img src="https://via.placeholder.com/200" alt="Placeholder Image 2">
-        <br>
-        <a href="https://www.example.com" target="_blank">Visit Resource 2</a>
-    </section>
-
-    <section>
-        <img src="https://via.placeholder.com/200" alt="Placeholder Image 3">
-        <br>
-        <a href="https://www.example.com" target="_blank">Visit Resource 3</a>
-    </section>
-
+  <h1 id="main-title">Welcome to My Website</h1>
+  <p>This is a paragraph of normal text.</p>
+  <p class="highlight">This is highlighted text with a yellow background.</p>
 </body>
 </html>

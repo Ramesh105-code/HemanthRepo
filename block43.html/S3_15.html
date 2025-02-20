@@ -5,6 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        header, footer {
+            background-color: orange;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-left: 185px;
+            margin-right: 185px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            border-bottom: 2px solid orange;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .project {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid orange;
+        }
+
+        .project h3 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, textarea, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: rgba(255, 187, 0, 0.982);
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width:50%;
+            padding-left: 50px;
+            margin-left: 350px;
+            
+        }
+
+        button:hover {
+            background-color: rgba(0, 255, 13, 0.642);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -21,7 +117,7 @@
     <section id="about">
         <h2>About Me</h2>
         <p>Hello! I'm a web developer with a passion for creating functional and beautiful web applications.</p>
-        <img src="profile.jpg" alt="A picture of me">
+        <img src="data:image/jpeg;base64,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" alt="A picture of me">
     </section>
     
     <section id="projects">
@@ -29,8 +125,8 @@
         <div class="project">
             <h3>Project One: Personal Blog</h3>
             <p>Screenshot of my personal blog project</p>
-            <p>A personal blog where I write about web development, programming, and technology.</p>
-            <a href="#">View Project</a>
+            <p>A personal blog where I write about web development, programming, and technology.</p><br>
+            <a href="#">View Project</a><br>
             <ul>
                 <li>HTML</li>
                 <li>CSS</li>
@@ -40,8 +136,8 @@
         <div class="project">
             <h3>Project Two: E-commerce Site</h3>
             <p>Screenshot of my e-commerce project</p>
-            <p>An e-commerce website built to simulate a real-world online shopping experience.</p>
-            <a href="#">View Project</a>
+            <p>An e-commerce website built to simulate a real-world online shopping experience.</p><br>
+            <a href="#">View Project</a><br>
             <ul>
                 <li>HTML</li>
                 <li>CSS</li>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Direction Example</title>
+    <style>
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Flex Container */
+        .container {
+            display: flex;             
+            justify-content: center;  
+            align-items: center;      
+            height: 100vh;             
+            background-color: #f4f4f4;
+            gap: 15px;  
+
+        }
+        .row {
+            flex-direction: row;       
+        }
+
+        .column {
+            flex-direction: column;    
+        }
+
+        /* Flex Items */
+        .item {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    
+<!-- Change "row" to "column" to switch layout -->
+    <div class="container row">  
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f3f3f3;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .box h2 {
+            margin-bottom: 15px;
+        }
+
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .item {
+            width: calc(50% - 10px);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .explore {
+            margin-top: 15px;
+            color: #007185;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- First Box -->
+        <div class="box">
+            <h2>Revamp your home in style</h2>
+            <div class="items">
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="Item 1">
+                    <p>Cushion covers, bedsheets & more</p>
+                </div>
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="Item 2">
+                    <p>Figurines, vases & more</p>
+                </div>
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="Item 3">
+                    <p>Home storage</p>
+                </div>
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="Item 4">
+                    <p>Lighting solutions</p>
+                </div>
+            </div>
+            <p class="explore">Explore all</p>
+        </div>
+
+        <!-- Second Box -->
+        <div class="box">
+            <h2>Starting ₹149 | Headphones</h2>
+            <div class="items">
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="boAt">
+                    <p>Starting ₹249 | boAt</p>
+                </div>
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="boult">
+                    <p>Starting ₹349 | boult</p>
+                </div>
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="noise">
+                    <p>Starting ₹649 | Noise</p>
+                </div>
+                <div class="item">
+                    <img src="https://via.placeholder.com/150" alt="zebronics">
+                    <p>Starting ₹149 | Zebronics</p>
+                </div>
+            </div>
+            <p class="explore">See all offers</p>
+        </div>
+    </div>
+
+</body>
+</html>
