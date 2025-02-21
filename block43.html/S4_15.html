@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Complex Navigation Bar</title>
   <style>
-    /* General styles for the navigation bar */
+   
     nav {
       background-color: #333;
       padding: 10px;
     }
 
-    /* Style for the main sections */
+    
     nav .section {
       margin-bottom: 15px;
     }
 
-    /* Style for all links */
+    
     nav a {
       color: white;
       text-decoration: none;
@@ -24,17 +24,17 @@
       display: inline-block;
     }
 
-    /* Hover state for all links */
+    
     nav a:hover {
       background-color: #555;
     }
 
-    /* Active state for all links */
+    
     nav a:active {
       background-color: #777;
     }
 
-    /* Descendant combinator for styling links inside each section */
+    
     nav .section1 a {
       color: lightblue;
     }
@@ -47,20 +47,24 @@
       color: lightcoral;
     }
 
-    /* Child combinator: styling direct child links in each section */
+    
     nav .section1 > a {
       font-weight: bold;
+      padding-left: 1200px;
+      text-align: right;
+      padding-left: 100px;
     }
 
     nav .section2 > a {
       text-transform: uppercase;
+    padding-left: 100px;
     }
 
     nav .section3 > a {
       font-style: italic;
     }
 
-    /* Specificity for links starting with https */
+    
     nav a[href^="https"] {
       color: yellow !important;
     }
