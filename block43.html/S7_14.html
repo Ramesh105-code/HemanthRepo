@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging Grid Layout</title>
+  <style>
+    
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 100px 100px 100px; 
+      gap: 10px;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+   
+    .item1, .item2, .item3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .item1 {
+      background: #FF5733;
+      grid-column: 1;
+      grid-row: 1 / 2;
+    }
+
+    .item2 {
+      background: #33B5E5;
+      grid-column: 2 / span 2; 
+      grid-row: 2;
+    }
+
+    .item3 {
+      background: #75D701;
+      grid-column: 3;
+      grid-row: 3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="item1">Item 1</div>
+    <div class="item2">Item 2</div>
+    <div class="item3">Item 3</div>
+  </div>
+
+</body>
+</html>
