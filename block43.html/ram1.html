@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-Do List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    #task-list {
-      list-style: none;
-      padding: 0;
-    }
-    #task-list li {
-      display: flex;
-      justify-content: space-between;<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enhanced Souled Store Header</title>
@@ -97,7 +81,7 @@
             display: block;
         }
 
-        /* Dropdown menu styling */
+        
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -141,10 +125,16 @@
 </head>
 <body>
 
-    <!-- Top Bar -->
+   
     <div class="top-bar">
         <div>
             <span>📍 India</span>
+        </div>
+        <div class="category-menu">
+            <a href="#">WOMEN</a>
+            <a href="#">MEN</a>
+            <a href="#">KIDS</a>
+
         </div>
         <div>
             <a href="#">Track Order</a>
@@ -153,20 +143,21 @@
         </div>
     </div>
 
-    <!-- Main Header -->
+  
     <div class="header">
         <div class="logo">
             <img src="data:image/png;base64,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" alt="The Souled Store">
         </div>
-        <div class="category-menu">
+        <!-- <div class="category-menu">
             <a href="#">WOMEN</a>
             <a href="#">MEN</a>
             <a href="#">KIDS</a>
-        </div>
+        </div> -->
         <div class="nav-menu">
-            <!-- Topwear Dropdown -->
+           
             <div>
                 <a href="#">TOPWEAR ▼</a>
+               
                 <div class="dropdown-menu">
                     <a href="#">All Topwear</a>
                     <a href="#">Oversized T-Shirts</a>
@@ -180,7 +171,7 @@
                     <a href="#">Hoodies</a>
                 </div>
             </div>
-            <!-- Bottomwear Dropdown -->
+           
             <div>
                 <a href="#">BOTTOMWEAR ▼</a>
                 <div class="dropdown-menu">
@@ -192,7 +183,7 @@
                     <a href="#">Cargos</a>
                 </div>
             </div>
-            <!-- Bestsellers Dropdown -->
+           
             <div>
                 <a href="#">BESTSELLERS ▼</a>
                 <div class="dropdown-menu">
@@ -202,7 +193,7 @@
                     <a href="#">Bestselling Bottoms</a>
                 </div>
             </div>
-            <!-- Sneakers Dropdown -->
+           
             <div>
                 <a href="#">SNEAKERS ▼</a>
                 <div class="dropdown-menu">
@@ -210,7 +201,7 @@
                     <a href="#">Sneaker Care</a>
                 </div>
             </div>
-            <!-- Collections Dropdown -->
+            
             <div>
                 <a href="#">COLLECTIONS ▼</a>
                 <div class="dropdown-menu">
@@ -221,9 +212,9 @@
                     <a href="#">Active Wear</a>
                 </div>
             </div>
-            <!-- Accessories Dropdown -->
+           
             <div>
-                <a href="#">ACCESSORIES 🔥 ▼</a>
+                <a href="#">ACCESSORIES  ▼</a>
                 <div class="dropdown-menu">
                     <a href="#">Iron-on Patch</a>
                     <a href="#">Comic Books</a>
@@ -240,70 +231,3 @@
             <a href="#">❤</a>
             <a href="#">🛍</a>
         </div>
-      align-items: center;
-      margin: 5px 0;
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .completed {
-      text-decoration: line-through;
-      color: gray;
-    }
-    button {
-      margin-left: 5px;
-    }
-  </style>
-</head>
-<body>
-  <h1>To-Do List</h1>
-  <input type="text" id="task-input" placeholder="Enter a task">
-  <button id="add-task-btn">Add Task</button>
-  <ul id="task-list"></ul>
-
-  <script>
-    // Select DOM elements
-    const taskInput = document.getElementById('task-input');
-    const addTaskBtn = document.getElementById('add-task-btn');
-    const taskList = document.getElementById('task-list');
-
-    // Function to add a task
-    addTaskBtn.addEventListener('click', () => {
-      const taskText = taskInput.value.trim();
-
-      if (taskText === '') {
-        alert('Task cannot be empty!');
-        return;
-      }
-
-      // Create a new task item
-      const li = document.createElement('li');
-      li.textContent = taskText;
-
-      // Add "Complete" button
-      const completeBtn = document.createElement('button');
-      completeBtn.textContent = 'Complete';
-      completeBtn.addEventListener('click', () => {
-        li.classList.toggle('completed');
-      });
-
-      // Add "Delete" button
-      const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = 'Delete';
-      deleteBtn.addEventListener('click', () => {
-        taskList.removeChild(li);
-      });
-
-      // Append buttons to the list item
-      li.appendChild(completeBtn);
-      li.appendChild(deleteBtn);
-
-      // Append the task to the list
-      taskList.appendChild(li);
-
-      // Clear the input field
-      taskInput.value = '';
-    });
-  </script>
-</body>
-</html>
