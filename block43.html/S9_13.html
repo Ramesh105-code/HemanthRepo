@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive DOM Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #content-box {
+            width: 300px;
+            height: 150px;
+            border: 2px solid black;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: lightgray;
+        }
+        input {
+            padding: 8px;
+            margin: 10px;
+            width: 250px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Interactive DOM Manipulation</h2>
+
+    <input type="text" id="color-input" placeholder="Enter a color name">
+    <button id="change-bg">Change Background</button>
+    <br>
+
+    <input type="text" id="text-input" placeholder="Enter new text">
+    <button id="update-text">Update Text</button>
+
+    <div id="content-box">This is the content box.</div>
+
+    <script>
+       
+        const colorInput = document.getElementById("color-input");
+        const textInput = document.getElementById("text-input");
+        const contentBox = document.getElementById("content-box");
+        const changeBgBtn = document.getElementById("change-bg");
+        const updateTextBtn = document.getElementById("update-text");
+
+       
+        changeBgBtn.addEventListener("click", function() {
+            const colorValue = colorInput.value.trim();
+            
+            
+            const isValidColor = (color) => {
+                const temp = document.createElement("div");
+                temp.style.color = color;
+                return temp.style.color !== "";
+            };
+
+            if (isValidColor(colorValue)) {
+                contentBox.style.backgroundColor = colorValue;
+            } else {
+                alert("Invalid color name!");
+            }
+        });
+
+       
+        updateTextBtn.addEventListener("click", function() {
+            const textValue = textInput.value.trim();
+            
+            if (textValue !== "") {
+                contentBox.textContent = textValue;
+            } else {
+                alert("Please enter some text!");
+            }
+        });
+    </script>
+
+</body>
+</html>

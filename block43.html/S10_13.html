@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Propagation Exploration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .outer {
+            width: 300px;
+            height: 300px;
+            background: lightcoral;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .middle {
+            width: 200px;
+            height: 200px;
+            background: lightblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inner {
+            width: 100px;
+            height: 100px;
+            background: lightgreen;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Event Propagation Exploration</h2>
+
+    <div class="outer" id="outer">
+        Outer Div
+        <div class="middle" id="middle">
+            Middle Div
+            <div class="inner" id="inner">
+                Inner Div
+                <button id="innerBtn">Click Me</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleEvent(event) {
+            alert(`Clicked: ${this.id}`);
+        }
+
+        function stopPropagation(event) {
+            alert(`Clicked: ${this.id} (Propagation Stopped)`);
+            event.stopPropagation(); 
+        }
+
+       
+        document.getElementById("outer").addEventListener("click", handleEvent, false);
+        document.getElementById("middle").addEventListener("click", handleEvent, false);
+        document.getElementById("inner").addEventListener("click", handleEvent, false);
+        document.getElementById("innerBtn").addEventListener("click", stopPropagation, false);
+
+       
+        document.getElementById("outer").addEventListener("click", handleEvent, true);
+        document.getElementById("middle").addEventListener("click", handleEvent, true);
+        document.getElementById("inner").addEventListener("click", handleEvent, true);
+    </script>
+
+</body>
+</html>

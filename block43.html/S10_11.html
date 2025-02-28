@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating and Removing Elements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        .add-btn { background-color: green; }
+        .remove-btn { background-color: red; }
+        #container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            min-height: 50px;
+        }
+        p {
+            background: #f3f3f3;
+            padding: 8px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Dynamic Paragraph Manager</h2>
+    <button class="add-btn" id="addParagraphBtn">Add Paragraph</button>
+    <button class="remove-btn" id="removeParagraphBtn">Remove Last Paragraph</button>
+
+    <div id="container"></div>
+
+    <script>
+        const container = document.getElementById('container');
+        const addBtn = document.getElementById('addParagraphBtn');
+        const removeBtn = document.getElementById('removeParagraphBtn');
+
+        addBtn.addEventListener('click', function() {
+            const newPara = document.createElement('p');
+            newPara.textContent = "This is a new paragraph.";
+            container.appendChild(newPara);
+        });
+
+        removeBtn.addEventListener('click', function() {
+            const lastPara = container.lastElementChild;
+            if (lastPara) {
+                container.removeChild(lastPara);
+            }
+        });
+    </script>
+
+</body>
+</html>
