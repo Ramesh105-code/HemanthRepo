@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior & Exterior Design</title>
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+       
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: white;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+        }
+
+        .contact-btn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+      
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .text-content {
+            width: 40%;
+        }
+
+        .text-content p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .text-content h1 {
+            font-size: 64px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 400px;
+        }
+
+       
+        .container {
+            display: flex;
+            background-color: white;
+            width: 90%;
+            max-width: 1000px;
+            padding: 40px;
+            align-items: center;
+            gap: 50px;
+            margin: 50px auto;
+        }
+
+        .image-container {
+            flex: 1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .content h3 {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: gray;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin: 10px 0;
+        }
+
+        .content p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+       
+        .interior-design {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 50px;
+            margin: 50px auto;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .interior-text {
+            flex: 1;
+        }
+
+        .interior-text h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .interior-text p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .interior-text .program-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .interior-image {
+            flex: 1;
+        }
+
+        .interior-image img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+       
+        .recent-work {
+            margin-top: 50px;
+            text-align: right;
+        }
+
+        .recent-work h3 {
+            font-size: 14px;
+            color: gray;
+        }
+
+        .recent-work h2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .view-project {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            border: 1px solid black;
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+        }
+
+        .work-image img {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+        }
+
+        
+        @media (max-width: 768px) {
+            .hero, .container, .interior-design {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content, .text-content, .interior-text {
+                text-align: center;
+                width: 100%;
+            }
+        }
+       
+        .design-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 50px;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .image-group img {
+            width: 350px;
+            border-radius: 5px;
+        }
+
+        .design-text h1 {
+            font-size: 38px;
+            font-weight: bold;
+        }
+      
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+}
+.section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+.text-content {
+    width: 45%;
+}
+.image-content {
+    width: 50%;
+}
+.image-content img {
+    width: 100%;
+    border-radius: 10px;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+    </style>
+</head>
+<body>
+
+   
+    <header>
+        <div class="logo">InDesign</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Our Gallery</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Services</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="contact-btn">Contact Us</a>
+    </header>
+
+   
+    <section class="hero">
+        <div class="text-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h1>Interior <br> Design</h1>
+        </div>
+        <div class="hero-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCP_Y1zGSTcxMf_ItYWwfItY4NVT6woKkjAw&s" alt="Interior Design">
+        </div>
+    </section>
+    
+    <section class="recent-work">
+        <h3>Our Recent Work</h3>
+        <h2>We Will Make These Unique Tastes Of Yours A Design Reality!</h2>
+        <a href="#" class="view-project">VIEW PROJECT</a>
+        <div class="work-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKIc_kss4gmWTk9urJ5yqttq3GnZ1y4ZUKDw&s" alt="Recent Work">
+        </div>
+    </section>
+
+   
+    <div class="container">
+        <div class="image-container">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjKQ4H_oZlSCK-uw18lSHOH9KMgDQIsIfAvA&s" alt="Exterior and Interior Design">
+        </div>
+        <div class="content">
+            <h3>WHO WE ARE</h3>
+            <h1>Exterior & <br> Interior</h1>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <a href="#" class="btn">READ MORE</a>
+        </div>
+    </div>
+
+   
+    <section class="interior-design">
+        <div class="interior-text">
+            <h1>Interior Design Program.</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p class="program-number">/01</p>
+            <p>02/ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div class="interior-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAaI6GCVQnuo6tCVIMJFsvZUz5QrAc0JgeGQ&s" alt="Interior Design Program">
+        </div>
+    </section>
+ <section class="design-section">
+        <div class="image-group">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNC0Ube2TPvsGZf8FIZu_BfB71W2jJV3kw2Q&s" alt="Modern Kitchen">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg0lQWDlJVDa2dX2PcGwJjwhF9XA_98Fh7VA&s" alt="Stylish Living Room">
+        </div>
+        <div class="text-content">
+            <h1>Design Unique And Functional Spaces</h1>
+            <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua.</p>
+            <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua.</p>
+        </div>
+    </section>
+  <div class="container">
+        <h1>Our Mentorship Program</h1>
+        
+        <div class="section">
+            <div class="text-content">
+                <h3>Career Course</h3>
+                <h2>Certified Interior Decorator</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p><strong>RS. 25,000/-</strong> - Introduction Price!</p>
+                <a href="#" class="button">Book Now</a>
+            </div>
+            <div class="image-content">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO-978rfYTP2ervY89MIhmzQPTWNLyyB27uQ&s" alt="Interior Design Room">
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="text-content">
+                <h3>Certification</h3>
+                <p>Certified Interior Decorator</p>
+                <h3>Course Pace</h3>
+                <p>Study at Flexible Pace</p>
+                <h3>Duration</h3>
+                <p>4 Months</p>
+                <h3>Course Form</h3>
+                <p>100% Online</p>
+            </div>
+        </div>
+    </div>
+<div class="section last-section">
+            <div class="text-content">
+                <h2>Furniture Should Be Comfortable.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+            <div class="image-content">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcvshf9yVtVqA7zvNU6Au9IxhSmT28OQnImA&s" alt="Modern Interior Design">
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Let’s Work Together And We’ll Help You By Our Best Interior Design</p>
+            <a href="#" class="button">Let's Chat</a>
+        </div>
+    </div>
+    
+
+</body>
+</html>
