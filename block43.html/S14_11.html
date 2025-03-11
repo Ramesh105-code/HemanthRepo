@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination Example</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #numbers { font-size: 20px; margin: 20px 0; }
+        button { margin: 5px; padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Paginated List</h2>
+    <div id="numbers"></div>
+    <button id="prevBtn">Previous</button>
+    <span id="pageNumber">Page 1</span>
+    <button id="nextBtn">Next</button>
+
+    <script>
+        const numbers = Array.from({ length: 50 }, (_, i) => i + 1); // [1, 2, 3, ..., 50]
+        const itemsPerPage = 10;
+        let currentPage = 1;
+
+        function displayPage(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            document.getElementById('numbers').textContent = numbers.slice(startIndex, endIndex).join(', ');
+            document.getElementById('pageNumber').textContent = `Page ${page}`;
+            document.getElementById('prevBtn').disabled = page === 1;
+            document.getElementById('nextBtn').disabled = page === Math.ceil(numbers.length / itemsPerPage);
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentPage < Math.ceil(numbers.length / itemsPerPage)) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+
+        displayPage(currentPage);
+    </script>
+</body>
+</html>

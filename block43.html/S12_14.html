@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        #weather {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Weather App</h2>
+    <form id="weatherForm">
+        <input type="text" id="city" placeholder="Enter city name" required>
+        <button type="submit">Get Weather</button>
+    </form>
+    
+    <p id="weather"></p>
+
+    <script>
+        const weatherForm = document.getElementById('weatherForm');
+        const cityInput = document.getElementById('city');
+        const weatherDisplay = document.getElementById('weather');
+        const API_KEY = "YOUR_API_KEY";  
+
+        weatherForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const city = cityInput.value.trim();
+
+            if (!city) {
+                weatherDisplay.innerHTML = "<span class='error'>Please enter a city name.</span>";
+                return;
+            }
+
+            fetchWeather(city);
+        });
+
+        async function fetchWeather(city) {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("City not found or API error.");
+                }
+
+                const data = await response.json();
+                const temp = data.main.temp;
+                const description = data.weather[0].description;
+
+                weatherDisplay.innerHTML = `🌡️ Temperature in <strong>${city}</strong>: ${temp}°C <br> ☁️ Condition: ${description}`;
+
+            } catch (error) {
+                weatherDisplay.innerHTML = `<span class='error'>${error.message}</span>`;
+            }
+        }
+    </script>
+
+</body>
+</html>

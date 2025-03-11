@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Products</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { font-size: 18px; padding: 5px; }
+        button { padding: 10px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Sort Products</h2>
+    <button id="sortByPrice">Sort by Price</button>
+    <button id="sortByName">Sort by Name</button>
+    <ul id="productList"></ul>
+
+    <script>
+
+        const products = [
+            { name: 'Phone', price: 800 },
+            { name: 'Laptop', price: 1500 },
+            { name: 'Tablet', price: 400 }
+        ];
+
+        let priceAscending = true;
+        let nameAscending = true;
+
+        function displayProducts() {
+            const productList = document.getElementById("productList");
+            productList.innerHTML = ""; // Clear list
+
+            products.forEach(product => {
+                const li = document.createElement("li");
+                li.textContent = `${product.name} - $${product.price}`;
+                productList.appendChild(li);
+            });
+        }
+        document.getElementById("sortByPrice").addEventListener("click", () => {
+            products.sort((a, b) => priceAscending ? a.price - b.price : b.price - a.price);
+            priceAscending = !priceAscending; // Toggle sort order
+            displayProducts();
+        });
+
+        document.getElementById("sortByName").addEventListener("click", () => {
+            products.sort((a, b) => nameAscending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+            nameAscending = !nameAscending; // Toggle sort order
+            displayProducts();
+        });
+        displayProducts();
+    </script>
+</body>
+</html>

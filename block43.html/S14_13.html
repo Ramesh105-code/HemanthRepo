@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load More Items</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { font-size: 18px; padding: 5px; }
+        button { padding: 10px 15px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Dynamic Content Loading</h2>
+    <ul id="itemList"></ul>
+    <button id="loadMoreBtn">Load More</button>
+    <p id="message" style="display: none; font-weight: bold; color: red;">No more items to load</p>
+
+    <script>
+        
+        const items = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
+        const itemList = document.getElementById("itemList");
+        const loadMoreBtn = document.getElementById("loadMoreBtn");
+        const message = document.getElementById("message");
+
+        let currentIndex = 0;
+        const itemsPerLoad = 5;
+
+        function loadItems() {
+        
+            for (let i = 0; i < itemsPerLoad && currentIndex < items.length; i++) {
+                const li = document.createElement("li");
+                li.textContent = items[currentIndex++];
+                itemList.appendChild(li);
+            }
+
+            if (currentIndex >= items.length) {
+                loadMoreBtn.style.display = "none";
+                message.style.display = "block";
+            }
+        }
+        loadItems();
+        loadMoreBtn.addEventListener("click", loadItems);
+    </script>
+</body>
+</html>
