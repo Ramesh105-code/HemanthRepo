@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase CRUD</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        form { width: 300px; margin: auto; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; }
+        table { width: 50%; margin: auto; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .edit-btn { background-color: #ffc107; color: black; cursor: pointer; padding: 5px; border: none; }
+        #message { color: green; }
+    </style>
+</head>
+<body>
+
+    <h2>Add User</h2>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <button type="submit">Add User</button>
+    </form>
+    <p id="message"></p>
+
+    <h2>User List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+
+    <h2>Edit User</h2>
+    <form id="editForm" style="display: none;">
+        <input type="hidden" id="editUserId">
+        <input type="text" id="editName" required>
+        <input type="email" id="editEmail" required>
+        <button type="submit">Update User</button>
+        <button type="button" onclick="cancelEdit()">Cancel</button>
+    </form>
+
+    <script>
+        
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            if (!name || !email) return alert('Please enter both name and email.');
+
+            const newUserRef = database.ref('users').push();
+            newUserRef.set({ name, email })
+                .then(() => {
+                    document.getElementById('message').textContent = "User added successfully!";
+                    document.getElementById('message').style.color = "green";
+                    document.getElementById('userForm').reset();
+                    fetchUsers();
+                })
+                .catch(error => {
+                    console.error("Error adding user:", error);
+                    document.getElementById('message').textContent = "Error adding user.";
+                    document.getElementById('message').style.color = "red";
+                });
+        });
+
+        function fetchUsers() {
+            database.ref('users').once('value')
+                .then(snapshot => {
+                    const users = snapshot.val();
+                    const userTable = document.getElementById("userTable");
+                    userTable.innerHTML = ""; 
+                    if (users) {
+                        Object.entries(users).forEach(([id, user]) => {
+                            const row = `<tr>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>
+                                    <button class="edit-btn" onclick="editUser('${id}', '${user.name}', '${user.email}')">Edit</button>
+                                </td>
+                            </tr>`;
+                            userTable.innerHTML += row;
+                        });
+                    } else {
+                        userTable.innerHTML = "<tr><td colspan='3'>No users found.</td></tr>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+
+        function editUser(userId, name, email) {
+            document.getElementById("editUserId").value = userId;
+            document.getElementById("editName").value = name;
+            document.getElementById("editEmail").value = email;
+            document.getElementById("editForm").style.display = "block";
+        }
+
+        document.getElementById("editForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const userId = document.getElementById("editUserId").value;
+            const updatedName = document.getElementById("editName").value.trim();
+            const updatedEmail = document.getElementById("editEmail").value.trim();
+
+            if (!updatedName || !updatedEmail) return alert("Please enter valid details!");
+
+            database.ref("users/" + userId).update({ name: updatedName, email: updatedEmail })
+                .then(() => {
+                    document.getElementById("message").textContent = "User updated successfully!";
+                    document.getElementById("message").style.color = "green";
+                    document.getElementById("editForm").reset();
+                    document.getElementById("editForm").style.display = "none";
+                    fetchUsers(); 
+                })
+                .catch(error => {
+                    console.error("Error updating user:", error);
+                    document.getElementById("message").textContent = "Error updating user.";
+                    document.getElementById("message").style.color = "red";
+                });
+        });
+
+        function cancelEdit() {
+            document.getElementById("editForm").reset();
+            document.getElementById("editForm").style.display = "none";
+        }
+
+        fetchUsers();
+    </script>
+
+</body>
+</html>
