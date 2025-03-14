@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, select, button { margin: 5px; padding: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .pagination { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>User Management App</h2>
+
+    <input type="text" id="searchInput" placeholder="Search by name">
+    <input type="text" id="filterInput" placeholder="Filter by email domain (e.g., @gmail.com)">
+    <button onclick="applyFilters()">Apply</button>
+
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+
+    <div class="pagination">
+        <button onclick="prevPage()">Previous</button>
+        <span id="pageNumber">Page 1</span>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        const API_URL = "https://your-project-id.firebaseio.com/users.json";
+        let users = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        const itemsPerPage = 5;
+
+        async function fetchUsers() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error("Failed to fetch users");
+                const data = await response.json();
+                users = Object.values(data);
+                filteredUsers = [...users];  
+                renderTable();
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            const emailFilter = document.getElementById("filterInput").value.toLowerCase();
+
+            filteredUsers = users.filter(user =>
+                (searchTerm ? user.name.toLowerCase().includes(searchTerm) : true) &&
+                (emailFilter ? user.email.endsWith(emailFilter) : true)
+            );
+
+            currentPage = 1; 
+            renderTable();
+        }
+
+        function renderTable() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const usersToShow = filteredUsers.slice(start, end);
+
+            const tableBody = document.getElementById("userTable");
+            tableBody.innerHTML = usersToShow.map(user =>
+                `<tr><td>${user.name}</td><td>${user.email}</td></tr>`
+            ).join("");
+
+            document.getElementById("pageNumber").innerText = `Page ${currentPage} of ${Math.ceil(filteredUsers.length / itemsPerPage)}`;
+        }
+
+        function nextPage() {
+            if (currentPage * itemsPerPage < filteredUsers.length) {
+                currentPage++;
+                renderTable();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        }
+
+        fetchUsers();  
+    </script>
+
+</body>
+</html>
