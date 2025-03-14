@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttled Movie Search</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input { padding: 10px; width: 80%; font-size: 1rem; margin-bottom: 10px; }
+        .suggestions { max-width: 600px; margin: auto; text-align: left; background: #f8f8f8; padding: 10px; border-radius: 5px; }
+        .suggestions div { padding: 8px; cursor: pointer; border-bottom: 1px solid #ddd; }
+        .suggestions div:hover { background: #eee; }
+        .movie-details { max-width: 600px; margin: auto; text-align: left; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        img { max-width: 100%; }
+    </style>
+</head>
+<body>
+
+    <h1>Throttled Movie Search</h1>
+    <input type="text" id="searchBox" placeholder="Search for a movie...">
+    <div id="suggestions" class="suggestions"></div>
+    <div id="movieDetails" class="movie-details"></div>
+
+    <script>
+        const API_KEY = "your_omdb_api_key";
+        let throttleTimer;
+
+        function throttle(func, limit) {
+            return function (...args) {
+                if (!throttleTimer) {
+                    func.apply(this, args);
+                    throttleTimer = setTimeout(() => {
+                        throttleTimer = null;
+                    }, limit);
+                }
+            };
+        }
+
+        async function fetchMovies(query) {
+            if (query.length < 3) {
+                document.getElementById("suggestions").innerHTML = "";
+                return;
+            }
+
+            const url = `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.Response === "True") {
+                    displaySuggestions(data.Search);
+                } else {
+                    document.getElementById("suggestions").innerHTML = "<p>No results found.</p>";
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        function displaySuggestions(movies) {
+            const suggestionsDiv = document.getElementById("suggestions");
+            suggestionsDiv.innerHTML = "";
+            movies.forEach(movie => {
+                const div = document.createElement("div");
+                div.innerText = movie.Title;
+                div.onclick = () => fetchMovieDetails(movie.imdbID);
+                suggestionsDiv.appendChild(div);
+            });
+        }
+
+        async function fetchMovieDetails(imdbID) {
+            const url = `https://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                displayMovieDetails(data);
+            } catch (error) {
+                console.error("Error fetching movie details:", error);
+            }
+        }
+
+        function displayMovieDetails(movie) {
+            document.getElementById("movieDetails").innerHTML = `
+                <h2>${movie.Title} (${movie.Year})</h2>
+                <img src="${movie.Poster}" alt="${movie.Title}">
+                <p><strong>Director:</strong> ${movie.Director}</p>
+                <p><strong>Actors:</strong> ${movie.Actors}</p>
+                <p><strong>Plot:</strong> ${movie.Plot}</p>
+            `;
+        }
+
+        document.getElementById("searchBox").addEventListener("input", throttle(() => {
+            fetchMovies(document.getElementById("searchBox").value);
+        }, 1000)); 
+
+    </script>
+
+</body>
+</html>
