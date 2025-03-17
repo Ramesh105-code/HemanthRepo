@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form with JSON Configuration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .submissions-container {
+            margin-top: 30px;
+        }
+        .submission-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .submission-card h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .submission-property {
+            margin-bottom: 5px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Form</h1>
+    
+    <div id="loading" class="loading">Loading form configuration...</div>
+    
+    <div id="formContainer" class="form-container" style="display: none;">
+        <form id="dynamicForm">
+            <div id="formFields"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <div class="submissions-container">
+        <h2>Submissions</h2>
+        <div id="submissionsContainer"></div>
+    </div>
+
+    <script>
+       
+        const JSON_SERVER_URL = 'http://localhost:3000';
+        
+      
+        async function fetchFormFields() {
+            try {
+                const response = await fetch(`${JSON_SERVER_URL}/formFields`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch form fields');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching form fields:', error);
+                document.getElementById('loading').textContent = 'Error loading form configuration. Please try again later.';
+            }
+        }
+        
+       
+        function generateFormFields(formFields) {
+            const formFieldsContainer = document.getElementById('formFields');
+            formFieldsContainer.innerHTML = '';
+            
+            formFields.forEach(field => {
+                const formGroup = document.createElement('div');
+                formGroup.className = 'form-group';
+                
+                const label = document.createElement('label');
+                label.setAttribute('for', field.key);
+                label.textContent = field.label;
+                
+                const input = document.createElement('input');
+                input.setAttribute('id', field.key);
+                input.setAttribute('name', field.key);
+                input.setAttribute('type', field.type);
+                
+                if (field.maxLength) {
+                    input.setAttribute('maxlength', field.maxLength);
+                }
+                
+                const errorSpan = document.createElement('span');
+                errorSpan.className = 'error';
+                errorSpan.id = `${field.key}-error`;
+                
+                formGroup.appendChild(label);
+                formGroup.appendChild(input);
+                formGroup.appendChild(errorSpan);
+                
+                formFieldsContainer.appendChild(formGroup);
+            });
+            
+            
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+       
+        function validateForm(formData, formFields) {
+            let isValid = true;
+            
+            formFields.forEach(field => {
+                const value = formData.get(field.key);
+                const errorElement = document.getElementById(`${field.key}-error`);
+                errorElement.textContent = '';
+                
+              
+                if (!value) {
+                    errorElement.textContent = `${field.label} is required`;
+                    isValid = false;
+                    return;
+                }
+                
+                
+                switch (field.type) {
+                    case 'email':
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(value)) {
+                            errorElement.textContent = 'Please enter a valid email address';
+                            isValid = false;
+                        }
+                        break;
+                    case 'number':
+                        if (isNaN(value)) {
+                            errorElement.textContent = 'Please enter a valid number';
+                            isValid = false;
+                        }
+                        if (field.maxLength && value.length > parseInt(field.maxLength)) {
+                            errorElement.textContent = `Maximum length is ${field.maxLength} characters`;
+                            isValid = false;
+                        }
+                        break;
+                    case 'text':
+                        if (field.maxLength && value.length > parseInt(field.maxLength)) {
+                            errorElement.textContent = `Maximum length is ${field.maxLength} characters`;
+                            isValid = false;
+                        }
+                        break;
+                }
+            });
+            
+            return isValid;
+        }
+        
+       
+        async function submitForm(formData) {
+            try {
+                const response = await fetch(`${JSON_SERVER_URL}/submissions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(Object.fromEntries(formData)),
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to submit form');
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Failed to submit form. Please try again later.');
+            }
+        }
+        
+        
+        async function fetchSubmissions() {
+            try {
+                const response = await fetch(`${JSON_SERVER_URL}/submissions`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch submissions');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching submissions:', error);
+                document.getElementById('submissionsContainer').textContent = 'Error loading submissions. Please try again later.';
+                return [];
+            }
+        }
+        
+       
+        function displaySubmissions(submissions) {
+            const submissionsContainer = document.getElementById('submissionsContainer');
+            submissionsContainer.innerHTML = '';
+            
+            if (submissions.length === 0) {
+                submissionsContainer.textContent = 'No submissions yet.';
+                return;
+            }
+            
+            submissions.forEach((submission, index) => {
+                const card = document.createElement('div');
+                card.className = 'submission-card';
+                
+                const title = document.createElement('h3');
+                title.textContent = `Submission #${index + 1}`;
+                card.appendChild(title);
+                
+                Object.entries(submission).forEach(([key, value]) => {
+                    
+                    if (key === 'id') return;
+                    
+                    const property = document.createElement('div');
+                    property.className = 'submission-property';
+                    property.textContent = `${key}: ${value}`;
+                    card.appendChild(property);
+                });
+                
+                submissionsContainer.appendChild(card);
+            });
+        }
+        
+       
+        async function initApp() {
+            try {
+               
+                const formFields = await fetchFormFields();
+                generateFormFields(formFields);
+                
+                
+                const submissions = await fetchSubmissions();
+                displaySubmissions(submissions);
+                
+               
+                document.getElementById('dynamicForm').addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    
+                    const formData = new FormData(event.target);
+                    const isValid = validateForm(formData, formFields);
+                    
+                    if (isValid) {
+                        document.getElementById('loading').textContent = 'Submitting...';
+                        document.getElementById('loading').style.display = 'block';
+                        
+                        await submitForm(formData);
+                        
+                       
+                        event.target.reset();
+                        
+                        
+                        const submissions = await fetchSubmissions();
+                        displaySubmissions(submissions);
+                        
+                        document.getElementById('loading').style.display = 'none';
+                    }
+                });
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                document.getElementById('loading').textContent = 'Error initializing application. Please try again later.';
+            }
+        }
+        
+       
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

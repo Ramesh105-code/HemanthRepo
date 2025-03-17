@@ -1,0 +1,29 @@
+{
+    "formFields": [
+      {
+        "key": "user_name",
+        "label": "Name",
+        "type": "text",
+        "maxLength": "50"
+      },
+      {
+        "key": "mobile_no",
+        "label": "Mobile number",
+        "type": "number",
+        "maxLength": "10"
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "type": "email"
+      }
+    ],
+    "submissions": [
+      {
+        "user_name": "ramesh",
+        "mobile_no": "7799362584",
+        "email": "sjramnandu@gmail.com",
+        "id": 1
+      }
+    ]
+  }
