@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication ID Generator</title>
+    <script>
+        function generateAuthID(studentCode, email) {
+            
+            let emailParts = email.split("@");
+            let username = emailParts[0];
+            let domain = emailParts[1];
+
+            let combined = domain + studentCode + username;
+                combined = combined.toLowerCase();
+
+            
+            let filtered = "";
+            let vowels = "aeiou0123456789._ ";
+            for (let char of combined) {
+                if (vowels.includes(char)) {
+                    filtered += char;
+                }
+            }
+
+            let count = {};
+            for (let char of filtered) {
+                count[char] = (count[char] || 0) + 1;
+            }
+
+            let uniqueChars = "";
+            for (let char of filtered) {
+                if (count[char] === 1) {
+                    uniqueChars += char;
+                }
+            }
+
+            let authID = "";
+            for (let char of uniqueChars) {
+                if (char >= 'a' && char <= 'z') {
+                    authID += (char.charCodeAt(0) - 96); 
+                } else if (char >= '0' && char <= '9') {
+                    authID += char;
+                } else {
+                    authID += "1";
+                }
+            }
+
+            return authID;
+        }
+
+        function handleSubmit() {
+            let studentCode = document.getElementById("studentCode").value.trim();
+            let email = document.getElementById("email").value.trim();
+
+            if (studentCode === "" || email === "" || !email.includes("@")) {
+                document.getElementById("result").innerText = "Please enter valid details.";
+                return;
+            }
+
+            let authID = generateAuthID(studentCode, email);
+            document.getElementById("result").innerText = "Authentication ID: " + authID;
+
+            
+            fetch('https://questionmapping.onrender.com/api/problem/${authID}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.problemLink) {
+                        document.getElementById("problemLink").innerHTML = <a href="${data.problemLink}" target="_blank">Next Problem</a>;
+                    } else {
+                        document.getElementById("problemLink").innerText = "Problem link not found.";
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("problemLink").innerText = "Failed to fetch problem link.";
+                });
+        }
+    </script>
+</head>
+<body>
+    <h2>Authentication ID Generator</h2>
+    <label for="studentCode">Student Code:</label>
+    <input type="text" id="studentCode" /><br><br>
+    <label for="email">Email:</label>
+    <input type="text" id="email" /><br><br>
+    <button onclick="handleSubmit()">Generate ID</button>
+    <p id="result"></p>
+    <p id="problemLink"></p>
+</body>
+</html>
