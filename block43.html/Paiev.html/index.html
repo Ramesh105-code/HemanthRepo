@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authentication ID Generator</title>
+</head>
+<body>
+    <h2>Authentication ID Generator</h2>
+    <label for="studentCode">Student Code:</label>
+    <input type="text" id="studentCode" /><br><br>
+    <label for="email">Email:</label>
+    <input type="text" id="email" /><br><br>
+    <button onclick="handleSubmit()">Generate ID</button>
+    <p id="result"></p>
+    <p id="problemLink"></p>
+    
     <script>
         function generateAuthID(studentCode, email) {
             
@@ -76,15 +87,5 @@
                 });
         }
     </script>
-</head>
-<body>
-    <h2>Authentication ID Generator</h2>
-    <label for="studentCode">Student Code:</label>
-    <input type="text" id="studentCode" /><br><br>
-    <label for="email">Email:</label>
-    <input type="text" id="email" /><br><br>
-    <button onclick="handleSubmit()">Generate ID</button>
-    <p id="result"></p>
-    <p id="problemLink"></p>
 </body>
 </html>
