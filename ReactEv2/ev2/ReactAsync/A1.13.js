@@ -6,7 +6,7 @@ const App = () => {
   const [reactUpdates, setReactUpdates] = useState(0);
   const [vanillaUpdates, setVanillaUpdates] = useState(0);
 
-  // For vanilla JS updates
+  
   let vanillaCount = 0;
 
   const handleVanillaClick = () => {
