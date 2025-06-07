@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manual DOM vs Virtual DOM</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .panel {
+      width: 48%;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .controls {
+      width: 100%;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    button {
+      margin: 5px;
+      padding: 10px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button id="addItem">Add Item</button>
+    <button id="stressTest">Render 100 Items</button>
+  </div>
+
+  <div class="panel" id="manualDomPanel">
+    <h2>Manual DOM</h2>
+    <div id="manualCounter"></div>
+    <ul id="manualList"></ul>
+  </div>
+
+  <div class="panel" id="reactDomPanel">
+    <h2>React (Virtual DOM)</h2>
+    <div id="reactRoot"></div>
+  </div>
+
+  <script type="text/javascript">
+    // --- Manual DOM Implementation ---
+    let manualCount = 0;
+    let manualItems = [];
+
+    function renderManualDOM() {
+      console.log('[Manual DOM] Re-rendering manual DOM');
+
+      const counterEl = document.getElementById('manualCounter');
+      counterEl.textContent = 'Counter: ' + manualCount;
+
+      const listEl = document.getElementById('manualList');
+      listEl.innerHTML = '';
+      manualItems.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        console.log(`[Manual DOM] Appending item ${index}: ${item}`);
+        listEl.appendChild(li);
+      });
+    }
+
+    document.getElementById('addItem').addEventListener('click', () => {
+      manualCount++;
+      manualItems.push('Item ' + manualCount);
+      renderManualDOM();
+      if (window.reactAddItem) reactAddItem();
+    });
+
+    document.getElementById('stressTest').addEventListener('click', () => {
+      manualCount += 100;
+      for (let i = 1; i <= 100; i++) {
+        manualItems.push('Item ' + (manualCount - 100 + i));
+      }
+      renderManualDOM();
+      if (window.reactAdd100Items) reactAdd100Items();
+    });
+
+    // Initial render
+    renderManualDOM();
+  </script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function ReactDOMPanel() {
+      const [count, setCount] = useState(0);
+      const [items, setItems] = useState([]);
+
+      window.reactAddItem = () => {
+        console.log('[React] Adding one item');
+        setCount(prev => prev + 1);
+        setItems(prev => [...prev, 'Item ' + (count + 1)]);
+      };
+
+      window.reactAdd100Items = () => {
+        console.log('[React] Adding 100 items');
+        const start = count + 1;
+        const newItems = Array.from({ length: 100 }, (_, i) => 'Item ' + (start + i));
+        setCount(prev => prev + 100);
+        setItems(prev => [...prev, ...newItems]);
+      };
+
+      console.log('[React] Re-rendering ReactDOMPanel');
+
+      return (
+        <div>
+          <div>Counter: {count}</div>
+          <ul>
+            {items.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('reactRoot'));
+    root.render(<ReactDOMPanel />);
+  </script>
+</body>
+</html>
