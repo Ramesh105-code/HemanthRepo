@@ -3,7 +3,7 @@ import React from 'react';
 const Pagination = ({ currentPage, totalItems, itemsPerPage = 5, onPageChange }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  if (totalPages <= 1) return null; // Don't render if only 1 page
+  if (totalPages <= 1) return null; 
 
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
