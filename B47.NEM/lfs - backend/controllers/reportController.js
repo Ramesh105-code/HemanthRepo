@@ -16,7 +16,7 @@ Lecture: ${lecture.title}
 Course: ${lecture.course.title}
 Average Rating: ${avgRating.toFixed(2)}
 Reviews:
-${reviews.map(r => `- ${r.user.name}: ${r.rating} ⭐ - ${r.comment}`).join('\n')}
+${reviews.map(r => `- ${r.user.name}: ${r.rating} - ${r.comment}`).join('\n')}
 `;
 
   const filePath = path.join(__dirname, `../reports/lecture_${lecture._id}.txt`);
