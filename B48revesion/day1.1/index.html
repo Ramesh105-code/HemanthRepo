@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+    #map { height: 300px; width: 100%; margin: 10px 0; }
+    .forecast { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .forecast-item { border: 1px solid #ccc; padding: 10px; width: 120px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Weather App</h1>
+  <input type="text" id="cityInput" placeholder="Enter city name" />
+  <button id="searchBtn">Search Weather</button>
+  <button id="forecastBtn">5-Day Forecast</button>
+  
+  <div id="weatherResult"></div>
+  <div id="map"></div>
+  <div id="forecastResult" class="forecast"></div>
+  
+  <script src="app.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</body>
+</html>
