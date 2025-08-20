@@ -1,0 +1,21 @@
+import React, { useState } from "react";
+import Child from "./components/Child";
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [other, setOther] = useState(0);
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+
+      <h2>Other: {other}</h2>
+      <button onClick={() => setOther(other + 1)}>Increase Other</button>
+
+      <Child value={other} />
+    </div>
+  );
+}
+
+export default App;
