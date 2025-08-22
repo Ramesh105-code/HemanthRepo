@@ -1,0 +1,15 @@
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+
+const UserSchema = new mongoose.Schema({
+  role: { type: String, enum: ["patient", "doctor"], required: true },
+  name: String,
+  email: { type: String, unique: true },
+  passwordHash: String,
+}, { timestamps: true });
+
+UserSchema.methods.comparePassword = function(password) {
+  return bcrypt.compare(password, this.passwordHash);
+};
+
+module.exports = mongoose.model("User", UserSchema);
