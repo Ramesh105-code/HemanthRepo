@@ -1,0 +1,114 @@
+
+**Final output (in order):**
+
+undefined
+undefined
+3
+2
+1
+
+
+# 1) Read the code (show on screen)
+
+var x = 1;
+
+function outer() {
+  console.log(x);
+
+  function inner() {
+    console.log(x);
+    var x = 3;
+    console.log(x);
+  }
+
+  var x = 2;
+  inner();
+  console.log(x);
+}
+
+outer();
+console.log(x);
+
+# 2) Hoisting 101 (global vs function scope)
+
+* `var` is **function-scoped** and **hoisted**: declaration goes to the top of its function, initialized to **undefined** (not the assigned value).
+* A **local var with the same name “shadows”** outer variables.
+* Functions (like `outer` and `inner`) are hoisted with their **full definitions**.
+
+# 3) Global Creation → Execution
+
+**Creation (before any line runs):**
+
+* Hoist `var x` → `x` exists (value = `undefined`).
+* Hoist `function outer` → available.
+
+**Execution:**
+
+1. `x = 1;` → global `x` becomes `1`.
+2. `outer();` → enter `outer` execution context.
+
+# 4) Enter `outer()` (its own scope)
+
+**Creation (hoisting inside `outer`):**
+
+* Hoist `function inner` (fully defined).
+* Hoist `var x` (local to `outer`) → **`x` exists here as `undefined`**, shadowing the global `x`.
+
+**Execution inside `outer`:**
+
+1. `console.log(x);`
+
+   * Looks for `x` in `outer` first → finds local `x` (currently `undefined`).
+   * **Prints `undefined`.**  (Output #1)
+
+2. (Function `inner` is already hoisted; nothing to do when we reach its line.)
+
+3. `var x = 2;` → assign to the **local** `x` in `outer`. Now `outer.x = 2`.
+
+4. `inner();` → enter `inner` execution context.
+
+5. After `inner` finishes, `console.log(x);`
+
+   * Still inside `outer`, local `x` is `2`.
+   * **Prints `2`.**  (Output #4)
+
+# 5) Enter `inner()` (nested function)
+
+**Creation (hoisting inside `inner`):**
+
+* Hoist `var x` (local to `inner`) → `inner.x = undefined`.
+  This **shadows `outer`’s x** while inside `inner`.
+
+**Execution inside `inner`:**
+
+1. `console.log(x);`
+
+   * Finds local `inner.x` (currently `undefined`).
+   * **Prints `undefined`.**  (Output #2)
+2. `var x = 3;` → assigns to `inner.x`. Now `inner.x = 3`.
+3. `console.log(x);`
+
+   * Local `inner.x` is `3`.
+   * **Prints `3`.**  (Output #3)
+4. Return to `outer`.
+
+# 6) Back to Global after `outer()`
+
+After `outer()` completes, global `x` is **still 1** (we never reassigned the global).
+
+* `console.log(x);` at the end (global scope) → **Prints `1`.**  (Output #5)
+
+# 7) Quick Recap (great for the last 30–45 seconds of your video)
+
+* **Why first `console.log` is `undefined`?**
+  Because `outer` has its own `var x` hoisted to `undefined`, which shadows the global `x=1` until it’s set to `2`.
+* **Why `inner`’s first log is `undefined`?**
+  `inner` also has its own hoisted `var x` (starts as `undefined`), so it logs `undefined` before assigning `3`.
+* **Scope chain effect:** each function’s local `var x` hides outer ones.
+* **Final global log is `1`:** global `x` never changed inside `outer`/`inner`.
+
+# 8) (Optional) What if we used `let`?
+
+If `var x` inside `inner` were `let x = 3;`, the first `console.log(x)` inside `inner` would throw a **ReferenceError** due to the **Temporal Dead Zone** (TDZ) — `let`/`const` aren’t initialized to `undefined` at hoist time.
+
+---

@@ -1,0 +1,144 @@
+
+### **1. Introduction **
+
+  *“Hi everyone, in this video I’ll explain how JavaScript executes code step by step. We’ll talk about the two phases of execution, hoisting, and how the call stack works—with examples.”*
+
+---
+
+### **2. Execution Context & Phases **
+
+* Explain that **every JS program runs inside an Execution Context**.
+* Two phases:
+
+  1. **Memory Creation Phase (Hoisting Phase)**
+
+     * Variables declared with `var` are hoisted (initialized with `undefined`).
+     * Functions are hoisted with their full definition.
+     * `let` and `const` are hoisted but kept in **temporal dead zone** (TDZ).
+  2. **Execution Phase**
+
+     * Code runs line by line, assigning values, executing functions, etc.
+
+*Use a simple example:*
+
+```js
+console.log(a); 
+var a = 10;
+
+sayHi();
+function sayHi() {
+  console.log("Hello!");
+}
+```
+
+Explain:
+
+* During memory phase: `a → undefined`, `sayHi → function`.
+* During execution: first `console.log(a)` prints `undefined`, then `a` becomes 10, then `sayHi()` runs.
+
+---
+
+### **3. Hoisting in Detail **
+
+Take another example:
+
+```js
+console.log(b); 
+let b = 20;
+
+greet();
+var greet = function() {
+  console.log("Hi!");
+};
+
+
+Explain:
+
+* For `let`, memory is allocated but kept in TDZ → cannot access before initialization.
+* For `var greet`, only `undefined` is hoisted → calling it before assignment gives `TypeError: greet is not a function`.
+
+---
+
+### **4. Call Stack & Function Execution **
+
+Explain **call stack** with nested functions:
+
+```js
+function first() {
+  console.log("First starts");
+  second();
+  console.log("First ends");
+}
+
+function second() {
+  console.log("Inside second");
+}
+
+first();
+console.log("Done");
+
+
+Walkthrough:
+
+* Global context created → functions stored.
+* Execution begins: `first()` pushed to call stack.
+* Inside `first`, `second()` is called → pushed to stack.
+* After `second` finishes, popped out, then `first` finishes, popped.
+* Finally global context ends → program finishes.
+
+Pick a slightly tricky example with hoisting + nested functions:
+
+
+
+var x = 1;
+
+function outer() {
+  console.log(x); 
+
+  function inner() {
+    console.log(x);
+    var x = 3;
+    console.log(x);
+  }
+
+  var x = 2;
+  inner();
+  console.log(x);
+}
+
+outer();
+console.log(x);
+
+
+**Expected Output:**
+
+undefined
+undefined
+3
+2
+1
+
+
+**Step-by-step reasoning**:
+
+* Global memory: `x → 1`, `outer → function`.
+* Call `outer()` → new execution context created.
+
+  * Memory phase of outer: `x → undefined`, `inner → function`.
+  * First log: `undefined`.
+  * Call `inner()`: new context.
+
+    * Memory: `x → undefined`.
+    * First log inside inner: `undefined`.
+    * Then `x = 3`, log → `3`.
+    * Inner finishes.
+  * Back in outer, log `x → 2`.
+* Outer finishes.
+* Global log: `1`.
+
+
+### **6. Conclusion **
+
+Wrap up:
+*“So, JavaScript code runs in two phases: memory creation (hoisting) and execution. Functions and variables behave differently in hoisting, and the call stack manages function execution order. Understanding this makes it easier to debug and predict code behavior. 
+
