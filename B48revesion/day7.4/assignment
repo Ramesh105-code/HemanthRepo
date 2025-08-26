@@ -1,0 +1,91 @@
+
+
+
+* Start with:
+
+  > “Today I’ll explain `call`, `apply`, and `bind` in JavaScript. These methods let us control the value of `this` inside functions. This is important because in JavaScript, `this` depends on how a function is called, not where it’s defined.”
+
+---
+
+### 2. **Task A — Method Borrowing with `call` **
+
+ **Code live in VS Code/console**
+
+```js
+const person1 = {
+    name: "alice",
+    greet : function (city){
+        console.log(Hi,I'm $ {this.name} from $ {city});
+    }
+};
+const person2 = {name:"Bob"};
+person1.greet("delhi");
+person1.greet.call (person2,"Hyderabad)
+```
+
+ While coding, explain:
+
+* `call` immediately invokes the function.
+* First argument = `this` value.
+* Rest = arguments (comma-separated).
+
+---
+
+### 3. **Task B — Arrays of Arguments with `apply` **
+
+
+
+```js
+
+```
+
+ Explain:
+
+* `apply` is just like `call`, but it takes arguments as an array.
+* Useful when data already exists as an array.
+
+---
+
+### 4. **Task C — Preserve `this` with `bind` (and partial args) **
+
+
+```js
+const person = {
+  name: "David",
+  sayHello: function (greeting, punctuation) {
+    console.log(`${greeting}, I’m ${this.name}${punctuation}`);
+  }
+};
+
+setTimeout(person.sayHello, 1000);
+
+setTimeout(person.sayHello.bind(person, "Hello"), 1000); 
+
+const excitedHello = person.sayHello.bind(person, "Hey there", "!!!");
+excitedHello();
+```
+
+ Explain:
+
+* `bind` does not call immediately.
+* It returns a **new function** with `this` fixed.
+* Also allows partial arguments → called **partial application**.
+
+---
+
+### 5. **Common Pitfalls **
+
+* Arrow functions ❌:
+
+  ```js
+  const obj = { name: "Eve", greet: () => console.log(this.name) };
+  obj.greet(); 
+  ```
+
+  → Arrow functions don’t have their own `this`.
+
+* Event handlers:
+  Without `bind`, `this` can be lost in callbacks.
+
+---
+
