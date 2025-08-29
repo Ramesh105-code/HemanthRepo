@@ -1,0 +1,69 @@
+Array.prototype.mapPolyfill = function(callback, thisArg) {
+  if (typeof callback !== "function") {
+    throw new TypeError(callback + " is not a function");
+  }
+
+  const result = [];
+  for (let i = 0; i < this.length; i++) {
+   
+    if (i in this) {
+      result.push(callback.call(thisArg, this[i], i, this));
+    }
+  }
+  return result;
+};
+
+Array.prototype.filterPolyfill = function(callback, thisArg) {
+  if (typeof callback !== "function") {
+    throw new TypeError(callback + " is not a function");
+  }
+
+  const result = [];
+  for (let i = 0; i < this.length; i++) {
+    if (i in this) {
+      if (callback.call(thisArg, this[i], i, this)) {
+        result.push(this[i]);
+      }
+    }
+  }
+  return result;
+};
+
+
+Array.prototype.reducePolyfill = function(callback, initialValue) {
+  if (typeof callback !== "function") {
+    throw new TypeError(callback + " is not a function");
+  }
+
+  let accumulator = initialValue;
+  let startIndex = 0;
+
+  if (accumulator === undefined) {
+    if (this.length === 0) {
+      throw new TypeError("Reduce of empty array with no initial value");
+    }
+    accumulator = this[0];
+    startIndex = 1;
+  }
+
+  for (let i = startIndex; i < this.length; i++) {
+    if (i in this) {
+      accumulator = callback(accumulator, this[i], i, this);
+    }
+  }
+
+  return accumulator;
+};
+
+
+console.log([1, 2, 3].mapPolyfill(x => x * 2)); 
+
+console.log(["a", "b", "c"].mapPolyfill((x, i) => x.toUpperCase() + i)); 
+
+console.log([1, 2, 3, 4].filterPolyfill(x => x % 2 === 0)); 
+
+console.log(["apple", "banana", "cherry"].filterPolyfill(fruit => fruit.includes("a"))); 
+
+console.log([1, 2, 3, 4].reducePolyfill((acc, curr) => acc + curr, 0)); 
+
+console.log([1, 2, 3, 4].reducePolyfill((acc, curr) => acc * curr, 1)); 

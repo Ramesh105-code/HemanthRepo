@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search with Debounce</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background: #f9f9f9;
+    }
+
+    .container {
+      width: 300px;
+      position: relative;
+    }
+
+    #search {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #suggestions {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: absolute;
+      top: 105%;
+      width: 100%;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #suggestions li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #suggestions li:hover {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="search" placeholder="Search items..." />
+    <ul id="suggestions"></ul>
+  </div>
+
+  <script>
+    const items = [
+      "Apple", "Banana", "Orange", "Mango", "Grapes",
+      "Pineapple", "Watermelon", "Cherry", "Papaya", "Strawberry",
+      "Kiwi", "Guava", "Peach", "Plum", "Apricot",
+      "Blueberry", "Raspberry", "Pear", "Lychee", "Coconut",
+      "Laptop", "Mobile", "Tablet", "Headphones", "Charger",
+      "Monitor", "Keyboard", "Mouse", "Speaker", "Smartwatch"
+    ];
+
+    const searchInput = document.getElementById("search");
+    const suggestionsBox = document.getElementById("suggestions");
+
+    function debounce(fn, delay) {
+      let timer;
+      return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+      };
+    }
+
+    function searchItems(query) {
+      suggestionsBox.innerHTML = "";
+      if (!query) return;
+
+      const filtered = items.filter(item =>
+        item.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No results found";
+        li.style.color = "gray";
+        suggestionsBox.appendChild(li);
+      } else {
+        filtered.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          li.onclick = () => {
+            searchInput.value = item;
+            suggestionsBox.innerHTML = "";
+          };
+          suggestionsBox.appendChild(li);
+        });
+      }
+    }
+
+    const debouncedSearch = debounce((e) => {
+      searchItems(e.target.value);
+    }, 500);
+
+    searchInput.addEventListener("input", debouncedSearch);
+  </script>
+</body>
+</html>
