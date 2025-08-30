@@ -1,4 +1,6 @@
-import polls from "../data/pollsData.js";
+// import polls from "../data/pollsData.js";
+
+import polls from "../data/polls";
 
 export const getPolls = (req, res) => {
   res.json(polls);
