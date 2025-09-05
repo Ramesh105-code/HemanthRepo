@@ -1,0 +1,9 @@
+Example : useCounter Hook*
+
+import {useState} from "react";
+
+export const useCounter = (initialValue: number = 0) => {
+    const [count,setCount = (initialValue);
+     const [count,setCount] = useState()
+    ]
+}

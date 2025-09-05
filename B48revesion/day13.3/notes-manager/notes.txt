@@ -1,0 +1,2 @@
+node app.js add "Buy groceries"
+node app.js add "Finish assignment"
