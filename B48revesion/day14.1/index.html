@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autocorrect with Suggestions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .suggestions {
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      padding: 5px;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .suggestions div {
+      padding: 3px;
+      cursor: pointer;
+    }
+    .suggestions div:hover {
+      background: #eee;
+    }
+    button {
+      margin-top: 10px;
+      margin-right: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Autocorrect Input Box</h2>
+  <textarea id="inputBox" placeholder="Type here..."></textarea>
+  <div class="suggestions" id="suggestions"></div>
+
+  <br>
+  <button id="checkBtn">Check Spelling</button>
+  <button id="resetBtn">Reset</button>
+
+  <script>
+    const words = [
+      'hello', 'world', 'react', 'javascript', 'computer', 'programming',
+      'development', 'application', 'function', 'variable', 'array', 'object',
+      'string', 'number', 'boolean', 'undefined', 'null', 'console', 'document',
+      'window', 'event', 'click', 'button', 'input', 'form', 'submit', 'render',
+      'component', 'state', 'props', 'hook', 'effect', 'callback', 'promise',
+      'async', 'await', 'fetch', 'api', 'data', 'response', 'request', 'error',
+      'success', 'loading', 'complete', 'start', 'stop', 'create', 'update',
+      'delete', 'read', 'write', 'file', 'folder', 'directory', 'path', 'url',
+      'link', 'image', 'video', 'audio', 'text', 'content', 'title', 'description',
+      'name', 'email', 'password', 'user', 'admin', 'login', 'logout', 'register',
+      'profile', 'settings', 'preferences', 'configuration', 'options', 'menu',
+      'navigation', 'header', 'footer', 'sidebar', 'main', 'section', 'article',
+      'paragraph', 'sentence', 'word', 'letter', 'character', 'space', 'tab',
+      'line', 'break', 'new', 'old', 'first', 'last', 'next', 'previous',
+      'before', 'after', 'during', 'while', 'when', 'where', 'what', 'why',
+      'how', 'who', 'which', 'that', 'this', 'these', 'those', 'them', 'they',
+      'their', 'there', 'here', 'everywhere', 'somewhere', 'nowhere', 'anywhere'
+    ];
+
+    const inputBox = document.getElementById("inputBox");
+    const suggestionsDiv = document.getElementById("suggestions");
+    const checkBtn = document.getElementById("checkBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    /* ---------- Utility: Levenshtein Distance ---------- */
+    function levenshtein(a, b) {
+      const dp = Array.from({ length: a.length + 1 }, () =>
+        Array(b.length + 1).fill(0)
+      );
+      for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+      for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          if (a[i - 1] === b[j - 1]) {
+            dp[i][j] = dp[i - 1][j - 1];
+          } else {
+            dp[i][j] = 1 + Math.min(
+              dp[i - 1][j],    // delete
+              dp[i][j - 1],    // insert
+              dp[i - 1][j - 1] // replace
+            );
+          }
+        }
+      }
+      return dp[a.length][b.length];
+    }
+
+    function getClosestWord(word) {
+      let bestWord = word;
+      let minDist = Infinity;
+      for (let w of words) {
+        const dist = levenshtein(word.toLowerCase(), w.toLowerCase());
+        if (dist < minDist) {
+          minDist = dist;
+          bestWord = w;
+        }
+      }
+      return bestWord;
+    }
+
+    /* ---------- Suggestions ---------- */
+    function showSuggestions(prefix) {
+      suggestionsDiv.innerHTML = "";
+      if (!prefix) return;
+      const matches = words.filter(w => w.startsWith(prefix.toLowerCase())).slice(0, 10);
+      matches.forEach(m => {
+        const div = document.createElement("div");
+        div.textContent = m;
+        div.onclick = () => {
+          replaceLastWord(m);
+          suggestionsDiv.innerHTML = "";
+        };
+        suggestionsDiv.appendChild(div);
+      });
+    }
+
+    /* ---------- Replace Last Word ---------- */
+    function replaceLastWord(newWord) {
+      const text = inputBox.value.trimEnd();
+      let parts = text.split(/\s+/);
+      parts[parts.length - 1] = newWord;
+      inputBox.value = parts.join(" ") + " ";
+    }
+
+    /* ---------- On Typing ---------- */
+    inputBox.addEventListener("input", () => {
+      const text = inputBox.value.trimEnd();
+      const parts = text.split(/\s+/);
+      const lastWord = parts[parts.length - 1] || "";
+      showSuggestions(lastWord);
+    });
+
+    /* ---------- Auto-correct on Space ---------- */
+    inputBox.addEventListener("keydown", (e) => {
+      if (e.key === " ") {
+        const text = inputBox.value.trimEnd();
+        const parts = text.split(/\s+/);
+        const lastWord = parts[parts.length - 1];
+        if (lastWord && !words.includes(lastWord.toLowerCase())) {
+          const corrected = getClosestWord(lastWord);
+          parts[parts.length - 1] = corrected;
+          inputBox.value = parts.join(" ") + " ";
+        }
+      }
+    });
+
+    /* ---------- Check Spelling Button ---------- */
+    checkBtn.addEventListener("click", () => {
+      let parts = inputBox.value.trim().split(/\s+/);
+      parts = parts.map(word =>
+        words.includes(word.toLowerCase()) ? word : getClosestWord(word)
+      );
+      inputBox.value = parts.join(" ");
+    });
+
+    /* ---------- Reset Button ---------- */
+    resetBtn.addEventListener("click", () => {
+      inputBox.value = "";
+      suggestionsDiv.innerHTML = "";
+    });
+  </script>
+
+</body>
+</html>

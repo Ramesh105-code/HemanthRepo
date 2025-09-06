@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navbar (No JS)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Navbar container */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #333;
+      padding: 10px 20px;
+      color: #fff;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ff9800;
+    }
+
+    /* Hamburger (hidden by default) */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* Hidden checkbox */
+    #menu-toggle {
+      display: none;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: #333;
+        flex-direction: column;
+        width: 200px;
+        display: none;
+        padding: 10px 0;
+      }
+
+      .nav-links li {
+        margin: 15px 0;
+        text-align: center;
+      }
+
+      /* Show hamburger on mobile */
+      .hamburger {
+        display: block;
+      }
+
+      /* Checkbox hack: when checked show menu */
+      #menu-toggle:checked ~ .nav-links {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">MyLogo</div>
+
+    <!-- Checkbox for toggle -->
+    <input type="checkbox" id="menu-toggle">
+
+    <!-- Hamburger icon -->
+    <label for="menu-toggle" class="hamburger">☰</label>
+
+    <!-- Navigation links -->
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</body>
+</html>
