@@ -1,0 +1,14 @@
+Step 1
+Step 6 main start
+Step 14 finish
+Step 7 micro inside main
+Step 10 after await
+Step 13 micro outside main
+Step 8 micro chained
+Step 2 start
+Step 3 after await
+Step 11 timer inside main
+Step 12 micro after Step 11
+Step 9 timer inside micro
+Step 4 start
+Step 5 micro inside Step 4
